@@ -1,0 +1,53 @@
+Páginas do Projeto:
+
+    Página de Login
+        Elementos:
+            Campo de email
+            Campo de senha
+            Botão de login
+            Link para recuperação de senha
+
+    Dashboard
+        Elementos:
+            Navegação principal (menu lateral ou superior)
+            Resumo de cotações recentes
+            Atalhos para páginas de cadastro e consulta
+            Indicadores de status (produtos mais cotados, cotações pendentes, etc.)
+
+    Página de Cadastro de Produtos
+        Elementos:
+            Formulário de cadastro com campos:
+                Nome do produto
+                Categoria
+                Descrição
+                Quantidade em estoque
+            Botão para salvar
+            Lista de produtos cadastrados (opcional)
+
+    Página de Cadastro de Cotações
+        Elementos:
+            Formulário de cadastro com campos:
+                Seleção de produto (dropdown)
+                Fornecedor
+                Preço cotado
+                Data da cotação
+                Método de cotação (Internet, telefone, jornal, etc.)
+            Botão para salvar
+            Lista de cotações recentes (opcional)
+
+    Página de Consulta de Cotações por Produto
+        Elementos:
+            Campo de busca (por nome do produto)
+            Lista de produtos com cotações associadas
+            Tabela de cotações para cada produto:
+                Fornecedor
+                Preço
+                Data da cotação
+                Método de cotação
+            Filtros para refinar a busca (data, preço, fornecedor)
+
+    Página de Exportação de Cotações
+        Elementos:
+            Seleção de critérios para exportação (produto, data, fornecedor)
+            Botão para exportar em CSV
+            Histórico de exportações (opcional)
