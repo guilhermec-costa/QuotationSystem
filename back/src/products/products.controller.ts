@@ -1,20 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Sse } from '@nestjs/common';
-import { ProductsService } from './products.service';
-
-enum Status {
-    available = "In Stock",
-    unavailable = "Out of Stock"
-}
-
-type Product = {
-    id: number,
-    name: string,
-    description: string,
-    price: number,
-    status: Status,
-    quantity: number
-}
-
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { ProductsService, Product, Status } from './products.service';
 
 @Controller('products')
 export class ProductsController {
@@ -23,35 +8,27 @@ export class ProductsController {
 
     @Get() //   /api/products
     public findAll(@Query("status") status?: Status): Product[] {
-        console.log(status);
-        return [];
+        return this.productService.findAll(status);
     }
 
     @Get(":id") //   /api/products/id
-    public async findOne(@Param("id") id: number): Promise<number> {
-        const x = 5;
-        console.log(x)
-
-        return await new Promise((resolve) => {
-            setTimeout(() => resolve(id), 3000)
-        })
+    public async findOne(@Param("id", ParseIntPipe) id: number): Promise<Product> {
+        return await this.productService.findOne(id);
     }
 
     @Post()
     public async create(@Body() product: Product): Promise<Product> {
-        return product
+        return this.productService.create(product);
     }
 
     @Patch(":id")
-    public async update(@Param("id") id: number, @Body() product: Product): Promise<{ id: number } & Product> {
-        return { id, ...product };
+    public async update(@Param("id", ParseIntPipe) id: number, @Body() product: Product): Promise<Product> {
+        return await this.productService.update(id, product);
     }
 
     @Delete(":id")
-    public async delete(@Param("id") id: number): Promise<number> {
-        return id;
+    public async delete(@Param("id", ParseIntPipe) id: number): Promise<Product> {
+        return await this.productService.delete(id);
     }
 
 }
-
-
