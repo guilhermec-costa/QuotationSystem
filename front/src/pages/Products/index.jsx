@@ -127,8 +127,9 @@ import { useState } from "react";
     }
 ]; */
 
-export default memo(function Products() {
+export default function Products() {
     const [data, setData] = useState([]);
+
     useEffect(() => {
         const getProducts = async () => {
             try {
@@ -138,18 +139,15 @@ export default memo(function Products() {
                     headers: {
                         "Content-Type": "application/json"
                     }
-                }).then(response => response.json()).then(data => data);
+                })
 
-                return products;
+                return await products.json();
             } catch (error) {
                 console.log(error.message);
             }
         }
-        getProducts().
-            then(response => {
-                console.log(response)
-                setData(response)
-            })
+        getProducts().then(response => setData(response))
+
     }, []);
 
     return (
@@ -157,6 +155,6 @@ export default memo(function Products() {
             <DataTable columns={columns} dataset={data} />
         </div>
     )
-});
+};
 
 

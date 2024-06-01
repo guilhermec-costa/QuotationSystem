@@ -7,12 +7,12 @@ import { ArrowDownUp } from 'lucide-react';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
 import Pagination from './Components/Pagination';
+import { useEffect } from 'react';
 
 export function DataTable({
     dataset,
     columns
 }) {
-    console.log(dataset)
     const [data, setData] = useState(dataset);
     const [selectedRow, setSelectedRow] = useState({});
     const [actionType, setActionType] = useState("");
@@ -23,8 +23,8 @@ export function DataTable({
     });
 
     const table = useReactTable({
-        data: data,
-        columns: columns,
+        data,
+        columns,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -50,6 +50,10 @@ export function DataTable({
             }
         }
     });
+
+    useEffect(() => {
+        setData(dataset);
+    }, [dataset])
 
     return (
         <>
