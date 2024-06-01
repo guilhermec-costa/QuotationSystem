@@ -1,5 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { ProductsService, Product, Status } from './products.service';
+import { CreateProductDTO } from './dto/create-product.dto';
+import { UpdateProductDTO } from './dto/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -17,13 +19,13 @@ export class ProductsController {
     }
 
     @Post()
-    public async create(@Body() product: Product): Promise<Product> {
-        return this.productService.create(product);
+    public async create(@Body(ValidationPipe) createProductDto: CreateProductDTO): Promise<Product> {
+        return this.productService.create(createProductDto);
     }
 
     @Patch(":id")
-    public async update(@Param("id", ParseIntPipe) id: number, @Body() product: Product): Promise<Product> {
-        return await this.productService.update(id, product);
+    public async update(@Param("id", ParseIntPipe) id: number, @Body(ValidationPipe) updateProductDTO: UpdateProductDTO): Promise<UpdateProductDTO> {
+        return await this.productService.update(id, updateProductDTO);
     }
 
     @Delete(":id")

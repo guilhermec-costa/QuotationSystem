@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateProductDTO } from './dto/create-product.dto';
+import { UpdateProductDTO } from './dto/update-product.dto';
 
 export enum Status {
     available = "In Stock",
@@ -16,7 +18,7 @@ export interface Product {
 
 @Injectable()
 export class ProductsService {
-    private data: Product[] = [
+    private data: CreateProductDTO[] = [
         {
             id: 1,
             name: "Keyboard",
@@ -145,29 +147,30 @@ export class ProductsService {
     }
 
     public async findOne(id: number): Promise<Product> {
-        return this.data.find(product => product.id === id);
-    }
-
-    public async create(product: Product): Promise<Product> {
-        this.data.push(product);
+        const product = this.data.find(product => product.id === id);
+        if (!product) throw new NotFoundException();
         return product;
     }
 
-    public async update(id: number, newProduct: Product): Promise<Product> {
+    public async create(createProductDto: CreateProductDTO): Promise<Product> {
+        this.data.push(createProductDto);
+        return createProductDto;
+    }
+
+    public async update(id: number, updateProductDto: UpdateProductDTO): Promise<UpdateProductDTO> {
         this.data = this.data.map(product => {
             if (product.id === id) {
-                return { ...product, ...newProduct }
+                return { ...product, ...updateProductDto }
             }
 
             return product;
         })
 
-        return newProduct;
+        return updateProductDto;
     }
 
     public async delete(id: number): Promise<Product> {
         const removedProduct = await this.findOne(id);
-        console.log(removedProduct);
         this.data = this.data.filter(product => product.id !== removedProduct.id);
         return removedProduct;
     }
