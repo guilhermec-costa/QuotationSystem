@@ -12,6 +12,7 @@ export function DataTable({
     dataset,
     columns
 }) {
+    console.log(dataset)
     const [data, setData] = useState(dataset);
     const [selectedRow, setSelectedRow] = useState({});
     const [actionType, setActionType] = useState("");

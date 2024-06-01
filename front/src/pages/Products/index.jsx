@@ -1,8 +1,10 @@
 import { memo } from "react";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const data = [
+/* const data = [
     {
         id: "1",
         name: "Keyboard",
@@ -123,9 +125,33 @@ const data = [
         quantity: 0,
         status: "In Stock"
     }
-];
+]; */
 
 export default memo(function Products() {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+
+                const products = await fetch("http://localhost:3000/api/product", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(response => response.json()).then(data => data);
+
+                return products;
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        getProducts().
+            then(response => {
+                console.log(response)
+                setData(response)
+            })
+    }, []);
+
     return (
         <div>
             <DataTable columns={columns} dataset={data} />
