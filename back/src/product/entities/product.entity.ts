@@ -1,5 +1,5 @@
-import { Status } from "src/products/products.service"
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Status } from "../product.service";
 
 @Entity()
 export class Product {

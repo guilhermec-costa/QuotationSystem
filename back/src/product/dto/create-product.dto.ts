@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsString } from "class-validator"
-import { Status } from "src/products/products.service"
+import { Status } from "../product.service"
 
 export class CreateProductDto {
     id: number

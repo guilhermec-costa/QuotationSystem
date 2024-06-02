@@ -25,11 +25,17 @@ export class ProductService {
         return await this.productsRepository.findOneBy({ id });
     }
 
-    update(id: number, updateProductDto: UpdateProductDto) {
-        return `This action updates a #${id} product`;
+    async update(id: number, updateProductDto: UpdateProductDto) {
+        await this.productsRepository.update({ id }, updateProductDto);
+        return updateProductDto;
     }
 
     remove(id: number) {
         return `This action removes a #${id} product`;
     }
+}
+
+export enum Status {
+    available = "In Stock",
+    unavailable = "Out of Stock"
 }
