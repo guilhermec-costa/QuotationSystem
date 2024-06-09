@@ -7,7 +7,6 @@ import { ArrowDownUp } from 'lucide-react';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
 import Pagination from './Components/Pagination';
-import { useEffect } from 'react';
 
 export function DataTable({
     data,
@@ -53,7 +52,7 @@ export function DataTable({
 
     return (
         <>
-            <div className='w-[80%] mx-auto mt-[5%] rounded-md border bg-secondary'>
+            <div className='w-full rounded-md border bg-secondary mt-3'>
                 <Table className="w-[100%] mh-[25%] relative">
                     <TableHeader className="bg-secondary text-primary rounded-md">
                         {table.getHeaderGroups().map((headerGroup) => (

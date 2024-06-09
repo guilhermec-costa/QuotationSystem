@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { createContext } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 
 const dataset = [
@@ -124,21 +125,24 @@ const dataset = [
     }
 ];
 
+const ProductContext = createContext({});
+
+export const ProductsProvider = ({ children }) => {
+    const [data, setData] = useState(dataset);
+    const ctxValue = {
+        data,
+        setData
+    }
+    return (
+        <ProductContext.Provider value={ctxValue}>{children}</ProductContext.Provider>
+    )
+
+}
+
 const useProducts = () => {
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        const getProducts = async () => {
-            try {
-            } catch (error) {
-                console.log(error.message);
-            }
-        }
-        getProducts().then(() => setData(dataset))
-
-    }, []);
-
-    return { data, setData }
+    const context = useContext(ProductContext);
+    if (!context) throw new Error("useProducts must be withing a ProductsProvider")
+    return context;
 }
 
 export default useProducts;

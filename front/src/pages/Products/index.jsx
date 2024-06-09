@@ -4,13 +4,14 @@ import useProducts from "@/hooks/useProducts";
 import { Button } from "@/components/ui";
 import ProductModal from "./Components/ProductModal";
 import { useState } from "react";
+import { CirclePlus } from "lucide-react";
 
 export default function Products() {
     const { data, setData } = useProducts();
     const [isCreateNewProductModalOpen, setIsCreateNewProductModalOpen] = useState(false);
     return (
-        <div className="flex flex-col items-center">
-            <Button className="self-end" onClick={() => setIsCreateNewProductModalOpen(prev => !prev)}>Create new product</Button>
+        <div className="flex flex-col items-start w-[80%] mx-auto mt-6">
+            <Button className="w-fit" onClick={() => setIsCreateNewProductModalOpen(prev => !prev)}><CirclePlus className="mr-2" />Create product</Button>
             <DataTable columns={columns} data={data} setData={setData} />
             {isCreateNewProductModalOpen && (
                 <ProductModal
