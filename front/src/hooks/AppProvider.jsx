@@ -1,10 +1,13 @@
 import { AuthProvider } from "./useAuth"
+import { ProductsProvider } from "./useProducts";
 import { ThemeProvider } from "./useTheme";
 
 const AppProvider = ({ children }) => {
     return (
         <ThemeProvider defaultTheme="dark" storageThemeKey="cotation-theme">
-            <AuthProvider>{children}</AuthProvider>
+            <ProductsProvider>
+                <AuthProvider>{children}</AuthProvider>
+            </ProductsProvider>
         </ThemeProvider>
     )
 }

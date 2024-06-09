@@ -3,7 +3,6 @@ import { lazy } from "react";
 import ErrorBoundary from "../pages/ErrorBoundary";
 import PrivateRouter from "./PrivateRouter";
 import Layout from "@/pages/Layout";
-import { ProductsProvider } from "@/hooks/useProducts";
 
 const AuthPage = lazy(() => import("../pages/Auth"));
 const Products = lazy(() => import("../pages/Products"));
@@ -36,9 +35,7 @@ const router = createBrowserRouter([
         element: (
             <PrivateRouter>
                 <Layout>
-                    <ProductsProvider>
-                        <Products />
-                    </ProductsProvider>
+                    <Products />
                 </Layout>
             </PrivateRouter>
         ),

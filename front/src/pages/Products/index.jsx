@@ -1,10 +1,10 @@
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import useProducts from "@/hooks/useProducts";
 import { Button } from "@/components/ui";
 import ProductModal from "./Components/ProductModal";
 import { useState } from "react";
 import { CirclePlus } from "lucide-react";
+import { useProducts } from "@/hooks/useProducts";
 
 export default function Products() {
     const { data, setData } = useProducts();
@@ -18,6 +18,7 @@ export default function Products() {
                     mode="create"
                     setData={setData}
                     onConfirm={() => setIsCreateNewProductModalOpen(false)}
+                    onOpenChange={() => setIsCreateNewProductModalOpen(false)}
                 />
             )}
         </div>
