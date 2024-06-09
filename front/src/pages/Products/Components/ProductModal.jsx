@@ -1,5 +1,5 @@
 import { Button, Input, Separator } from "@/components/ui";
-import { notifyInfo, notifySuccess } from "@/components/ui/Toast/Toasters";
+import { notifySuccess } from "@/components/ui/Toast/Toasters";
 import {
     Dialog,
     DialogContent,
@@ -24,21 +24,20 @@ const ProductSchema = z.object({
 const ProductModal = ({
     rowData, rowIndex, onOpenChange, onConfirm, mode, setData
 }) => {
-    const editAvailable = mode === "edit" ? true : false;
+    const editAvailable = (mode === "edit" || mode === "create") ? true : false;
     const [productMessages, setProductMessages] = useState({});
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(ProductSchema),
-        defaultValues: rowData
+        defaultValues: rowData ? rowData : null
     });
 
     const generateProductModalMessages = useCallback(() => {
-        return mode === "edit" ?
-            {
-                action: "Editing"
-            } :
-            {
-                action: "Visualizing"
-            }
+        switch (mode) {
+            case "edit": return { action: "Editing" }
+            case "create": return { action: "Creating" }
+            case "delete": return { action: "Deleting" }
+            case "view": return { action: "Visualizing" }
+        }
     }, [mode])
 
     useEffect(() => {
@@ -67,11 +66,33 @@ const ProductModal = ({
                         <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteProductFromData}>Delete</Button>
                     </div>
                 )
+            };
+            case "create": {
+                return (
+                    <div className="my-3 w-full flex justify-between">
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" type="submit">Create</Button>
+                    </div>
+                )
             }
         }
     }, [mode])
 
-    const submitProductUpdate = (newProduct) => {
+    const updateProductDataset = (newProduct) => {
+        if (mode === "create") {
+            setData(prev => {
+                const lastItemId = Number(prev[prev.length - 1].id);
+                newProduct = {
+                    ...newProduct,
+                    id: lastItemId + 1,
+                    status: "In Stock"
+                }
+                return [...prev, newProduct];
+            });
+            onConfirm();
+            return;
+        }
+
         setData(prevProducts => prevProducts.map((product, i) => {
             if (i === rowIndex) {
                 product = {
@@ -93,7 +114,7 @@ const ProductModal = ({
                 </DialogDescription>
             </DialogHeader>
             <Separator className="bg-card" />
-            <form onSubmit={handleSubmit(submitProductUpdate)}>
+            <form onSubmit={handleSubmit(updateProductDataset)}>
                 <Label htmlFor="name">Name</Label>
                 <Input disabled={!editAvailable} {...register("name")}
                     className="focus-visible:ring-transparent ring-offset-transparent bg-background md:text-base

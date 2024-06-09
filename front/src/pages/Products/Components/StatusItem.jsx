@@ -24,12 +24,16 @@ const StatusItem = ({
         });
     };
 
+    const isChecked = columnFilters.some(filter =>
+        filter.id === columnId && filter.value.includes(status)
+    );
+
     return (
         <div className="items-top flex space-x-2">
             <Checkbox
                 id={columnId}
                 onCheckedChange={(e) => handleCheckboxChanged(e, status)}
-                value={true}
+                checked={isChecked}
             />
             <div className="grid gap-1.5 leading-none">
                 <label

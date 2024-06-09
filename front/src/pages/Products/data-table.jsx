@@ -10,10 +10,10 @@ import Pagination from './Components/Pagination';
 import { useEffect } from 'react';
 
 export function DataTable({
-    dataset,
+    data,
+    setData,
     columns
 }) {
-    const [data, setData] = useState(dataset);
     const [selectedRow, setSelectedRow] = useState({});
     const [actionType, setActionType] = useState("");
     const [columnFilters, setColumnFilters] = useState([]);
@@ -50,10 +50,6 @@ export function DataTable({
             }
         }
     });
-
-    useEffect(() => {
-        setData(dataset);
-    }, [dataset])
 
     return (
         <>
