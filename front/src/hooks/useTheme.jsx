@@ -24,7 +24,7 @@ const ThemeProvider = ({ children, defaultTheme, storageThemeKey }) => {
 
     const ctxValue = {
         theme,
-        setTheme: function (theme) {
+        setTheme: function(theme) {
             localStorage.setItem(storageThemeKey, theme);
             setTheme(theme);
         },

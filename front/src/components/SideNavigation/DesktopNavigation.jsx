@@ -8,6 +8,7 @@ import { SquareChevronLeft } from "lucide-react";
 import { SquareChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Github } from "lucide-react";
+import { ContactRound } from "lucide-react";
 
 const DesktopNavigation = ({ children }) => {
     const { logout } = useAuth();
@@ -27,6 +28,7 @@ const DesktopNavigation = ({ children }) => {
                     <NavItem title="Dashboard" link="/" icon={<BarChart />} cb={() => setIsSidebarVisible(false)} />
                     <NavItem title="Products" link={"/products"} icon={<ShoppingBag />} cb={() => setIsSidebarVisible(false)} />
                     <NavItem title="Profile" link={"/me"} icon={<User />} cb={() => setIsSidebarVisible(false)} />
+                    <NavItem title="Contacts" link={"/contacts"} icon={<ContactRound />} cb={() => setIsSidebarVisible(false)} />
                 </div>
             </div>
             <div className="flex justify-between items-center h-[50px] bg-secondary">

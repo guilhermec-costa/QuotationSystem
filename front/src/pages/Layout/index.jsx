@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { BarChart } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { User } from "lucide-react";
+import { ContactRound } from "lucide-react";
 
 const Layout = ({ children }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -20,6 +21,11 @@ const Layout = ({ children }) => {
             title: "Products",
             link: "/products",
             icon: <ShoppingBag />
+        },
+        {
+            title: "Contacts",
+            link: "/contacts",
+            icon: <ContactRound />
         },
         {
             title: "Profile",
