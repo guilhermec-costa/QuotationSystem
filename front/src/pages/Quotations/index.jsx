@@ -1,7 +1,7 @@
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { Button } from "@/components/ui";
-import ProductModal from "./Components/ProductModal";
+import QuotationModal from "./Components/QuotationModal";
 import { useState } from "react";
 import { CirclePlus } from "lucide-react";
 import { useQuotations } from "@/hooks/useQuotations";
@@ -14,7 +14,7 @@ export default function Products() {
             <Button className="w-fit" onClick={() => setIsCreateNewQuotationModalOpen(prev => !prev)}><CirclePlus className="mr-2" />Create quotation</Button>
             <DataTable columns={columns} data={data} setData={setData} />
             {isCreateNewQuotationModalOpen && (
-                <ProductModal
+                <QuotationModal
                     mode="create"
                     setData={setData}
                     onConfirm={() => setIsCreateNewQuotationModalOpen(false)}

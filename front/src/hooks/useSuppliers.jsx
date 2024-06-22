@@ -6,7 +6,6 @@ import { useContext, useState, createContext } from "react";
 const SuppliersContext = createContext({});
 
 const SuppliersProvider = ({ children }) => {
-    console.log("aqui")
     const dataset = useRef(() => ([
         {
             "id": 1,

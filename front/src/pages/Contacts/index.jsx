@@ -8,7 +8,6 @@ import { useContacts } from "@/hooks/useContacts";
 
 export default function Contacts() {
     const { data, setData } = useContacts();
-    console.log(data);
     const [isCreateNewContactOpen, setIsCreateNewContactModalOpen] = useState(false);
     return (
         <div className="flex flex-col items-start w-[80%] mx-auto mt-6">

@@ -24,7 +24,6 @@ const ContactModal = ({
     rowData, rowIndex, onOpenChange, onConfirm, mode, setData
 }) => {
     const editAvailable = (mode === "edit" || mode === "create") ? true : false;
-    console.log(editAvailable)
     const [contactMessages, setContactMessages] = useState({});
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         resolver: zodResolver(ContactSchema),
