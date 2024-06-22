@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Status } from "../product.service";
+import { Quotation } from "src/quotation/entities/quotation.entity";
 
 @Entity()
 export class Product {
@@ -21,6 +22,9 @@ export class Product {
 
     @Column()
     quantity: number
+
+    @OneToMany(() => Quotation, quotation => quotation.product)
+    quotations: Quotation[];
 
     constructor(product: Partial<Product>) {
         Object.assign(this, product);
