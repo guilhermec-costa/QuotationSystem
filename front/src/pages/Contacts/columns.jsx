@@ -70,7 +70,7 @@ export const columns = [
         },
     },
     {
-        accessorKey: "supplier",
+        accessorKey: "supplierName",
         header: "Supplier",
         cell: (props) => (
             <div>{props.getValue()}</div>
@@ -82,18 +82,11 @@ export const columns = [
         meta: {
             searchable: true,
             sortable: true,
-            FilterComponent: ({ columnFilters, setColumnFilters, columnId, table }) => <DropdownFilter
+            FilterComponent: ({ columnFilters, setColumnFilters, columnId }) => <InputFilterDrawer
                 columnFilters={columnFilters}
                 setColumnFilters={setColumnFilters}
-                columnId={columnId}
-                table={table}
-            />
+                columnId={columnId} />
         },
-        filterFn: (row, columnId, filterSuppliers) => {
-            if (filterSuppliers.length === 0) return true;
-            const rowSupplier = row.getValue(columnId);
-            return filterSuppliers.includes(rowSupplier);
-        }
     },
     {
         accessorKey: "actions",

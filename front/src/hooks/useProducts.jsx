@@ -7,7 +7,7 @@ const ProductContext = createContext({});
 const ProductsProvider = ({ children }) => {
     const dataset = useRef(() => ([
         {
-            id: "1",
+            id: 1,
             name: "Keyboard",
             description: "A mechanical keyboard",
             price: 100,
@@ -15,7 +15,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "2",
+            id: 2,
             name: "Mouse",
             description: "A wireless mouse",
             price: 50,
@@ -23,7 +23,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "3",
+            id: 3,
             name: "Monitor",
             description: "A 24-inch monitor",
             price: 200,
@@ -31,7 +31,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "4",
+            id: 4,
             name: "USB Cable",
             description: "A 2-meter USB-C cable",
             price: 15,
@@ -39,7 +39,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "5",
+            id: 5,
             name: "Laptop",
             description: "A 15-inch laptop",
             price: 1500,
@@ -47,7 +47,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "6",
+            id: 6,
             name: "Desk Lamp",
             description: "An adjustable desk lamp",
             price: 30,
@@ -55,7 +55,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "7",
+            id: 7,
             name: "Headphones",
             description: "Noise-canceling headphones",
             price: 120,
@@ -63,7 +63,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "8",
+            id: 8,
             name: "Mouse Pad",
             description: "A large mouse pad",
             price: 10,
@@ -71,7 +71,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "9",
+            id: 9,
             name: "Webcam",
             description: "A 1080p webcam",
             price: 70,
@@ -79,7 +79,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "10",
+            id: 10,
             name: "Smartphone",
             description: "A latest model smartphone",
             price: 800,
@@ -87,7 +87,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "11",
+            id: 11,
             name: "Tablet",
             description: "A 10-inch tablet",
             price: 600,
@@ -95,7 +95,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "12",
+            id: 12,
             name: "Charger",
             description: "A fast charger",
             price: 25,
@@ -103,7 +103,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "13",
+            id: 13,
             name: "Printer",
             description: "A color printer",
             price: 250,
@@ -111,7 +111,7 @@ const ProductsProvider = ({ children }) => {
             status: "In Stock"
         },
         {
-            id: "14",
+            id: 14,
             name: "Speakers",
             description: "Bluetooth speakers",
             price: 80,
@@ -119,7 +119,7 @@ const ProductsProvider = ({ children }) => {
             status: "Out of Stock"
         },
         {
-            id: "15",
+            id: 15,
             name: "External Hard Drive",
             description: "1TB external hard drive",
             price: 100,

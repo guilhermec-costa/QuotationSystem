@@ -9,6 +9,7 @@ import { ShoppingBag } from "lucide-react";
 import { User } from "lucide-react";
 import { ContactRound } from "lucide-react";
 import { Store } from "lucide-react";
+import { DollarSign } from "lucide-react";
 
 const Layout = ({ children }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -37,6 +38,11 @@ const Layout = ({ children }) => {
             title: "Suppliers",
             link: "/suppliers",
             icon: <Store />
+        },
+        {
+            title: "Quotations",
+            link: "/quotations",
+            icon: <DollarSign />
         },
     ]), [])
 

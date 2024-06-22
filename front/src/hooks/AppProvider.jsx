@@ -1,6 +1,7 @@
 import { AuthProvider } from "./useAuth"
 import { ContactsProvider } from "./useContacts";
 import { ProductsProvider } from "./useProducts";
+import { QuotationsProvider } from "./useQuotations";
 import { SuppliersProvider } from "./useSuppliers";
 import { ThemeProvider } from "./useTheme";
 
@@ -10,7 +11,9 @@ const AppProvider = ({ children }) => {
             <SuppliersProvider>
                 <ContactsProvider>
                     <ProductsProvider>
-                        <AuthProvider>{children}</AuthProvider>
+                        <QuotationsProvider>
+                            <AuthProvider>{children}</AuthProvider>
+                        </QuotationsProvider>
                     </ProductsProvider>
                 </ContactsProvider>
             </SuppliersProvider>

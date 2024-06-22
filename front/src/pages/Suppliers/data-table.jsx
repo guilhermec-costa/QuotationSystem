@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useReactTable, getCoreRowModel, getFilteredRowModel, getSortedRowModel, getPaginationRowModel } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { flexRender } from '@tanstack/react-table';
-import ProductModal from './Components/ProductModal';
 import { ArrowDownUp } from 'lucide-react';
+import SupplierModal from './Components/SupplierModal';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
 import Pagination from './Components/Pagination';
@@ -118,8 +118,8 @@ export function DataTable({
                 </Table>
                 <Pagination table={table} setPagination={setPagination} pagination={pagination} />
             </div>
-            {/* {!isNaN(selectedRow.rowIndex) && (
-                <ProductModal
+            {!isNaN(selectedRow.rowIndex) && (
+                <SupplierModal
                     mode={actionType}
                     setData={setData}
                     rowData={selectedRow.rowData}
@@ -130,7 +130,7 @@ export function DataTable({
                         table.options.meta.closeConfirmationModal();
                     }}
                 />
-            )} */}
+            )}
         </>
     );
 }

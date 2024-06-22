@@ -8,6 +8,7 @@ const AuthPage = lazy(() => import("../pages/Auth"));
 const Products = lazy(() => import("../pages/Products"));
 const Contacts = lazy(() => import("../pages/Contacts"));
 const Suppliers = lazy(() => import("../pages/Suppliers"));
+const Quotations = lazy(() => import("../pages/Quotations"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Me = lazy(() => import("../pages/Me"));
 
@@ -60,6 +61,17 @@ const router = createBrowserRouter([
             <PrivateRouter>
                 <Layout>
                     <Suppliers />
+                </Layout>
+            </PrivateRouter>
+        ),
+        errorElement: < ErrorBoundary />
+    },
+    {
+        path: "/quotations",
+        element: (
+            <PrivateRouter>
+                <Layout>
+                    <Quotations />
                 </Layout>
             </PrivateRouter>
         ),

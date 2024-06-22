@@ -1,10 +1,12 @@
 import { useMemo } from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 import { useContext, useState, createContext } from "react";
 
 const SuppliersContext = createContext({});
 
 const SuppliersProvider = ({ children }) => {
+    console.log("aqui")
     const dataset = useRef(() => ([
         {
             "id": 1,
@@ -118,6 +120,7 @@ const SuppliersProvider = ({ children }) => {
         data,
         setData
     }), [data]);
+
     return (
         <SuppliersContext.Provider value={ctxValue}>{children}</SuppliersContext.Provider>
     )

@@ -1,7 +1,7 @@
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { Button } from "@/components/ui";
-import ProductModal from "./Components/ProductModal";
+import ContactModal from "./Components/ContactModal";
 import { useState } from "react";
 import { CirclePlus } from "lucide-react";
 import { useContacts } from "@/hooks/useContacts";
@@ -15,7 +15,7 @@ export default function Contacts() {
             <Button className="w-fit" onClick={() => setIsCreateNewContactModalOpen(prev => !prev)}><CirclePlus className="mr-2" />Create contact</Button>
             <DataTable columns={columns} data={data} setData={setData} />
             {isCreateNewContactOpen && (
-                <ProductModal
+                <ContactModal
                     mode="create"
                     setData={setData}
                     onConfirm={() => setIsCreateNewContactModalOpen(false)}
