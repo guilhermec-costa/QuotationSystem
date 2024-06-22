@@ -118,8 +118,8 @@ export function DataTable({
                 </Table>
                 <Pagination table={table} setPagination={setPagination} pagination={pagination} />
             </div>
-            {/* {!isNaN(selectedRow.rowIndex) && (
-                <ProductModal
+            {!isNaN(selectedRow.rowIndex) && (
+                <ContactModal
                     mode={actionType}
                     setData={setData}
                     rowData={selectedRow.rowData}
@@ -130,7 +130,7 @@ export function DataTable({
                         table.options.meta.closeConfirmationModal();
                     }}
                 />
-            )} */}
+            )}
         </>
     );
 }

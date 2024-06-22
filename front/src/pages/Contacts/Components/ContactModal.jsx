@@ -15,15 +15,16 @@ import { z } from "zod";
 
 const ContactSchema = z.object({
     name: z.string(),
-    phone: z.string().min(10).max(15),  // Assumindo que o número de telefone tenha entre 10 e 15 caracteres
+    phone: z.string(),  // Assumindo que o número de telefone tenha entre 10 e 15 caracteres
     email: z.string().email(),
     supplierName: z.string(),
 });
 
 const ContactModal = ({
-    rowData, rowIndex, onOpenChange, onConfirm, mode, setData, useSupplier
+    rowData, rowIndex, onOpenChange, onConfirm, mode, setData
 }) => {
     const editAvailable = (mode === "edit" || mode === "create") ? true : false;
+    console.log(editAvailable)
     const [contactMessages, setContactMessages] = useState({});
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         resolver: zodResolver(ContactSchema),
@@ -80,18 +81,32 @@ const ContactModal = ({
         }
     }, [mode]);
 
-    const updateContactDataset = (formData) => {
-        const newContact = {
-            ...formData,
-        };
+    const updateContactDataset = (newContact) => {
+        if (mode === "create") {
+            setData(prev => {
+                const lastItemId = Number(prev[prev.length - 1].id);
+                newContact = {
+                    ...newContact,
+                    id: lastItemId + 1,
+                    status: "In Stock"
+                }
+                return [...prev, newContact];
+            });
+            onConfirm();
+            notifySuccess("Contact created!");
+            return;
+        }
 
-        setData(prev => {
-            const lastItemId = prev.length > 0 ? Number(prev[prev.length - 1].id) : 0;
-            newContact.id = lastItemId + 1;
-            return [...prev, newContact];
-        });
-
-        notifySuccess("Contact created");
+        setData(prevContacts=> prevContacts.map((contact, i) => {
+            if (i === rowIndex) {
+                contact= {
+                    ...contact,
+                    ...newContact
+                }
+            }
+            return contact 
+        }))
+        notifySuccess("Contact updated");
         onConfirm();
     };
 
@@ -128,28 +143,38 @@ const ContactModal = ({
                     {errors.email && <div className="form-error">{errors.email.message}</div>}
 
                     <Label htmlFor="supplierName">Supplier Name</Label>
-                    <Select
-                        disabled={!editAvailable}
-                        {...register("supplierName")}
-                        className="focus-visible:ring-transparent ring-offset-transparent bg-background md:text-base
+                    {!!editAvailable ? (
+                        <Select
+                            disabled={!editAvailable}
+                            {...register("supplierName")}
+                            className="focus-visible:ring-transparent ring-offset-transparent bg-background md:text-base
                                     data-[supplierName-errors=true]:my-0.5 my-1"
-                        data-supplierName-errors={!!errors.supplierName}
-                        onValueChange={(value) => setValue("supplierName", value)}
-                    >
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a supplier" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Suppliers</SelectLabel>
-                                {suppliersData.map(supplier => (
-                                    <SelectItem key={supplier.id} value={supplier.name}>
-                                        {supplier.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                            data-supplierName-errors={!!errors.supplierName}
+                            onValueChange={(value) => setValue("supplierName", value)}
+                            defaultValue={rowData?.supplierName}
+                        >
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Select a supplier" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Suppliers</SelectLabel>
+                                    {suppliersData.map(supplier => (
+                                        <SelectItem key={supplier.id} value={supplier.name}>
+                                            {supplier.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    ) :
+                        (
+                            <Input disabled={!editAvailable} {...register("supplierName")}
+                                className="focus-visible:ring-transparent ring-offset-transparent bg-background md:text-base
+                                    data-[email-errors=true]:my-0.5 my-1"
+                                data-email-errors={!!errors.supplierName}
+                            />
+                        )}
                     {errors.supplierName && <div className="form-error">{errors.supplierName.message}</div>}
 
                     <Separator />
