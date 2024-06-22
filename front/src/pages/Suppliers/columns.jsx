@@ -1,5 +1,4 @@
 import ActionsCell from "./Components/ActionsCell";
-import DropdownFilter from "./Components/DropwdownFilter";
 import InputFilterDrawer from "./Components/InputFilterDrawer";
 
 export const columns = [
@@ -32,14 +31,33 @@ export const columns = [
         },
     },
     {
+        accessorKey: "address",
+        header: "Address",
+        cell: (props) => (
+            <div>{props.getValue()}</div>
+        ),
+        enableColumnFilter: true,
+        size: 80,
+        minSize: 70,
+        filterFn: "includesString",
+        meta: {
+            searchable: true,
+            sortable: true,
+            FilterComponent: ({ columnFilters, setColumnFilters, columnId }) => <InputFilterDrawer
+                columnFilters={columnFilters}
+                setColumnFilters={setColumnFilters}
+                columnId={columnId} />
+        },
+    },
+    {
         accessorKey: "phone",
         header: "Phone",
         cell: (props) => (
             <div>{props.getValue()}</div>
         ),
         enableColumnFilter: true,
-        size: 50,
-        minSize: 40,
+        size: 60,
+        minSize: 50,
         filterFn: "includesString",
         meta: {
             searchable: true,
@@ -57,8 +75,8 @@ export const columns = [
             <div>{props.getValue()}</div>
         ),
         enableColumnFilter: true,
-        size: 60,
-        minSize: 50,
+        size: 80,
+        minSize: 70,
         filterFn: "includesString",
         meta: {
             searchable: true,
@@ -68,32 +86,6 @@ export const columns = [
                 setColumnFilters={setColumnFilters}
                 columnId={columnId} />
         },
-    },
-    {
-        accessorKey: "supplier",
-        header: "Supplier",
-        cell: (props) => (
-            <div>{props.getValue()}</div>
-        ),
-        enableColumnFilter: true,
-        size: 60,
-        minSize: 50,
-        filterFn: "includesString",
-        meta: {
-            searchable: true,
-            sortable: true,
-            FilterComponent: ({ columnFilters, setColumnFilters, columnId, table }) => <DropdownFilter
-                columnFilters={columnFilters}
-                setColumnFilters={setColumnFilters}
-                columnId={columnId}
-                table={table}
-            />
-        },
-        filterFn: (row, columnId, filterSuppliers) => {
-            if (filterSuppliers.length === 0) return true;
-            const rowSupplier = row.getValue(columnId);
-            return filterSuppliers.includes(rowSupplier);
-        }
     },
     {
         accessorKey: "actions",

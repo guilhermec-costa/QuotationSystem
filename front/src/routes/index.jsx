@@ -7,6 +7,7 @@ import Layout from "@/pages/Layout";
 const AuthPage = lazy(() => import("../pages/Auth"));
 const Products = lazy(() => import("../pages/Products"));
 const Contacts = lazy(() => import("../pages/Contacts"));
+const Suppliers = lazy(() => import("../pages/Suppliers"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Me = lazy(() => import("../pages/Me"));
 
@@ -48,6 +49,17 @@ const router = createBrowserRouter([
             <PrivateRouter>
                 <Layout>
                     <Contacts />
+                </Layout>
+            </PrivateRouter>
+        ),
+        errorElement: < ErrorBoundary />
+    },
+    {
+        path: "/suppliers",
+        element: (
+            <PrivateRouter>
+                <Layout>
+                    <Suppliers />
                 </Layout>
             </PrivateRouter>
         ),

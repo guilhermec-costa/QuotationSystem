@@ -8,6 +8,7 @@ import { BarChart } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { User } from "lucide-react";
 import { ContactRound } from "lucide-react";
+import { Store } from "lucide-react";
 
 const Layout = ({ children }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -31,6 +32,11 @@ const Layout = ({ children }) => {
             title: "Profile",
             link: "/me",
             icon: <User />
+        },
+        {
+            title: "Suppliers",
+            link: "/suppliers",
+            icon: <Store />
         },
     ]), [])
 
