@@ -3,11 +3,16 @@ import { useRef } from "react";
 import { useContext, useState, createContext } from "react";
 import { useSuppliers } from "./useSuppliers";
 import { useEffect } from "react";
+import { collection } from "firebase/firestore";
+import { useFirestore } from "./useFirestore";
 
 const ContactsContext = createContext({});
 
 const ContactsProvider = ({ children }) => {
+    const {app, db} = useFirestore();
     const { data: suppliers }= useSuppliers();
+    const [providerDataset, setProviderDataset] = useState([]);
+
     const dataset = useRef(() => ([
         {
             "id": 1,

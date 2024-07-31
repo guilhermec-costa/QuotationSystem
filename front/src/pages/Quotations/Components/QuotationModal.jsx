@@ -87,7 +87,6 @@ const QuotationModal = ({
     }, [mode]);
 
     const updateQuotationDataset = (formData) => {
-        console.log(formData);
         const newQuotation = { ...formData };
 
         if (mode === "create") {
