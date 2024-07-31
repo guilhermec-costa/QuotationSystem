@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { useContext, useState, createContext } from "react";
 import { useProducts } from "./useProducts";
 import { useEffect } from "react";
+import { firebaseConfig } from "@/env";
+import { getFirestore, collection, getDocs, getDoc } from "firebase/firestore/lite"
+import { initializeApp } from "firebase/app";
 
 const QuotationsContext = createContext({});
 
@@ -31,6 +34,11 @@ const QuotationsProvider = ({ children }) => {
         { id: 20, productId: 9, date: "2024-08-12", price: 240.75 },
     ]));
 
+    console.log(db)
+    const quotationCollection = collection(db, "quotations");
+    getDocs(quotationCollection).then(dataset => {
+        console.log(dataset)
+    })
 
     const [data, setData] = useState(dataset.current);
     useEffect(() => {
