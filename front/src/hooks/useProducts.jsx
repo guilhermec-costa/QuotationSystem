@@ -33,7 +33,6 @@ const ProductsProvider = ({ children }) => {
     )
 }
 
-
 const useProducts = () => {
     const context = useContext(ProductContext);
     if (!context) throw new Error("useProducts must be withing a ProductsProvider")
