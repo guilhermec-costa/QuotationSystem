@@ -1,6 +1,7 @@
+import ProductService from '@/api/productService';
 import { config } from 'dotenv';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import { getFirestore, setDoc, doc, addDoc } from 'firebase/firestore';
 
 config();  // Carregar variáveis de ambiente do arquivo .process.env
 
@@ -128,7 +129,6 @@ const suppliers = [
 
 const products = [
     {
-        id: 1,
         name: "Keyboard",
         description: "A mechanical keyboard",
         price: 100,
@@ -136,7 +136,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 2,
         name: "Mouse",
         description: "A wireless mouse",
         price: 50,
@@ -144,7 +143,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 3,
         name: "Monitor",
         description: "A 24-inch monitor",
         price: 200,
@@ -152,7 +150,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 4,
         name: "USB Cable",
         description: "A 2-meter USB-C cable",
         price: 15,
@@ -160,7 +157,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 5,
         name: "Laptop",
         description: "A 15-inch laptop",
         price: 1500,
@@ -168,7 +164,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 6,
         name: "Desk Lamp",
         description: "An adjustable desk lamp",
         price: 30,
@@ -176,7 +171,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 7,
         name: "Headphones",
         description: "Noise-canceling headphones",
         price: 120,
@@ -184,7 +178,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 8,
         name: "Mouse Pad",
         description: "A large mouse pad",
         price: 10,
@@ -192,7 +185,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 9,
         name: "Webcam",
         description: "A 1080p webcam",
         price: 70,
@@ -200,7 +192,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 10,
         name: "Smartphone",
         description: "A latest model smartphone",
         price: 800,
@@ -208,7 +199,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 11,
         name: "Tablet",
         description: "A 10-inch tablet",
         price: 600,
@@ -216,7 +206,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 12,
         name: "Charger",
         description: "A fast charger",
         price: 25,
@@ -224,7 +213,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 13,
         name: "Printer",
         description: "A color printer",
         price: 250,
@@ -232,7 +220,6 @@ const products = [
         status: "In Stock"
     },
     {
-        id: 14,
         name: "Speakers",
         description: "Bluetooth speakers",
         price: 80,
@@ -240,7 +227,6 @@ const products = [
         status: "Out of Stock"
     },
     {
-        id: 15,
         name: "External Hard Drive",
         description: "1TB external hard drive",
         price: 100,
@@ -388,6 +374,7 @@ const quotations = [
 ];
 
 async function addData() {
+    const productCollection = ProductService.productsCollection;
     // Adds suppliers 
     for (const supplier of suppliers) {
         await setDoc(doc(db, 'suppliers', supplier.id.toString()), supplier);
@@ -395,7 +382,7 @@ async function addData() {
 
     // Adds products 
     for (const product of products) {
-        await setDoc(doc(db, 'products', product.id.toString()), product);
+        await addDoc(productCollection, product);
     }
 
     // Adds contacts 

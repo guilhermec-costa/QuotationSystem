@@ -4,6 +4,7 @@ import { useContext, useState, createContext } from "react";
 import { useFirestore } from "./useFirestore";
 import { collection, getDocs } from "firebase/firestore";
 import collections from "@/persistence/collections";
+import ProductService from "@/api/productService";
 
 const ProductContext = createContext({});
 
@@ -13,10 +14,7 @@ const ProductsProvider = ({ children }) => {
     useEffect(() => {
         const fetchQuotations = async () => {
             try {
-                const productsCollection = collection(db, collections.PRODUCTS);
-                const productsSnapshot = await getDocs(productsCollection);
-                const productsList = productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setProductDataset(productsList);
+                setProductDataset(await ProductService.list());
             } catch (error) {
                 console.error("Error fetching products:", error);
             }

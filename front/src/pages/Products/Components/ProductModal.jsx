@@ -1,3 +1,4 @@
+import ProductService from "@/api/productService";
 import { Button, Input, Separator } from "@/components/ui";
 import { notifySuccess } from "@/components/ui/Toast/Toasters";
 import {
@@ -20,9 +21,8 @@ const ProductSchema = z.object({
     quantity: z.number()
 })
 
-
 const ProductModal = ({
-    rowData, rowIndex, onOpenChange, onConfirm, mode, setData
+    rowData, onOpenChange, onConfirm, mode
 }) => {
     const editAvailable = (mode === "edit" || mode === "create") ? true : false;
     const [productMessages, setProductMessages] = useState({});
@@ -45,7 +45,7 @@ const ProductModal = ({
     }, [mode])
 
     const deleteProductFromData = () => {
-        setData(prevProducts => prevProducts.filter((_, i) => i !== rowIndex));
+        ProductService.delete(rowData.id);
         onConfirm();
     }
 
@@ -78,32 +78,19 @@ const ProductModal = ({
         }
     }, [mode])
 
-    const updateProductDataset = (newProduct) => {
+    const updateProductDataset = async (newProduct) => {
         if (mode === "create") {
-            setData(prev => {
-                const lastItemId = Number(prev[prev.length - 1].id);
-                newProduct = {
-                    ...newProduct,
-                    id: lastItemId + 1,
-                    status: "In Stock"
-                }
-                return [...prev, newProduct];
-            });
+            await ProductService.create(newProduct);
             onConfirm();
             return;
         }
 
-        setData(prevProducts => prevProducts.map((product, i) => {
-            if (i === rowIndex) {
-                product = {
-                    ...product,
-                    ...newProduct
-                }
-            }
-            return product
-        }))
-        notifySuccess("Product updated");
-        onConfirm();
+        else if (mode === "edit") {
+            await ProductService.updateOne(rowData.id, newProduct)
+            notifySuccess("Product updated");
+            onConfirm();
+        }
+
     }
 
     return <Dialog defaultOpen={true} onOpenChange={onOpenChange}>

@@ -40,10 +40,6 @@ export function DataTable({
                 setSelectedRow({ rowData, rowIndex });
             },
 
-            deleteProductFromTable: () => {
-                setData(prevProducts => prevProducts.filter((_, i) => i !== selectedRow.rowIndex))
-            },
-
             closeConfirmationModal: () => {
                 setSelectedRow({})
             }
@@ -121,10 +117,7 @@ export function DataTable({
             {!isNaN(selectedRow.rowIndex) && (
                 <ProductModal
                     mode={actionType}
-                    setData={setData}
                     rowData={selectedRow.rowData}
-                    rowIndex={selectedRow.rowIndex}
-                    dataset={table.options.data}
                     onOpenChange={table.options.meta.closeConfirmationModal}
                     onConfirm={() => {
                         table.options.meta.closeConfirmationModal();

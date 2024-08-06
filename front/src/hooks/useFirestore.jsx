@@ -6,12 +6,17 @@ import React, { useContext, useMemo } from "react";
 // the context should return the firebase config, and firebase db
 const FirestoreContext = React.createContext({});
 
+export const getPersistenceSetup = () =>
+{
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    return { app, db };
+}
+
 export const FirestoreProvider = ({ children }) => {
 
     const persistence = useMemo(() => {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        return { app, db };
+        return getPersistenceSetup();
     }, []);
 
     return (
