@@ -18,7 +18,6 @@ export default function Products() {
                     mode="create"
                     setData={setData}
                     onConfirm={() => setIsCreateNewQuotationModalOpen(false)}
-                    onOpenChange={() => setIsCreateNewQuotationModalOpen(false)}
                 />
             )}
         </div>

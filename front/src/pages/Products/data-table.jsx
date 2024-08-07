@@ -118,7 +118,7 @@ export function DataTable({
                 <ProductModal
                     mode={actionType}
                     rowData={selectedRow.rowData}
-                    onOpenChange={table.options.meta.closeConfirmationModal}
+                    setData={setData}
                     onConfirm={() => {
                         table.options.meta.closeConfirmationModal();
                     }}

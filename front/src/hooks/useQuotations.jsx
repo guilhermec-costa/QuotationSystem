@@ -5,26 +5,36 @@ import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { useFirestore } from "./useFirestore";
 import collections from "@/persistence/collections";
+import ProductService from "@/api/productService";
 
 const QuotationsContext = createContext({});
 
 const QuotationsProvider = ({ children }) => {
     const { app, db } = useFirestore();
     const [quotationDataset, setQuotationDataset] = useState([]);
-    const { data: products } = useProducts();
-    useEffect(() => {
-        const fetchQuotations = async () => {
-            try {
-                const quotationsCollection = collection(db, collections.QUOTATIONS);
-                const quotationsSnapshot = await getDocs(quotationsCollection);
-                const quotationsList = quotationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setQuotationDataset(quotationsList);
-            } catch (error) {
-                console.error("Error fetching quotations:", error);
-            }
+    const [products, setProducts] = useState([]);
+
+    const fetchQuotations = async () => {
+        try {
+            const quotationsCollection = collection(db, collections.QUOTATIONS);
+            const quotationsSnapshot = await getDocs(quotationsCollection);
+            const quotationsList = quotationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setQuotationDataset(quotationsList);
+        } catch (error) {
+            console.error("Error fetching quotations:", error);
         }
+    }
+
+    const fetchProducts = async () => {
+        const products = await ProductService.list();
+        setProducts(products);
+    };
+
+    useEffect(() => {
         fetchQuotations();
+        fetchProducts();
     }, [app, db]);
+
 
     useEffect(() => {
         setQuotationDataset(prevQuotations => {
@@ -37,8 +47,12 @@ const QuotationsProvider = ({ children }) => {
 
     const ctxValue = useMemo(() => ({
         data: quotationDataset,
-        setData: setQuotationDataset
-    }), [quotationDataset]);
+        setData: (quotations) => {
+            setQuotationDataset(quotations);
+            fetchProducts(); 
+        }
+    }), [quotationDataset, products]);
+
     return (
         <QuotationsContext.Provider value={ctxValue}>{children}</QuotationsContext.Provider>
     )

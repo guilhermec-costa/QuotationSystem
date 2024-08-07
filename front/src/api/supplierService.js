@@ -53,9 +53,9 @@ export default class SupplierService {
 
     static async delete(supplierId) {
         try {
-            const supplierRef = doc(this.supplierCollection, supplier);
+            const supplierRef = doc(this.supplierCollection, supplierId);
             await deleteDoc(supplierRef);
-            console.log(`Supplier deleted successfully: ${supplier}`);
+            console.log(`Supplier deleted successfully: ${supplierId}`);
         } catch (error) {
             console.error("Failed to delete supplier:", error);
         }

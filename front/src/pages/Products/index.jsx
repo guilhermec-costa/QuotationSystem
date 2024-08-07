@@ -16,8 +16,8 @@ export default function Products() {
             {isCreateNewProductModalOpen && (
                 <ProductModal
                     mode="create"
+                    setData={setData}
                     onConfirm={() => setIsCreateNewProductModalOpen(false)}
-                    onOpenChange={() => setIsCreateNewProductModalOpen(false)}
                 />
             )}
         </div>

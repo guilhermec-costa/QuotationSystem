@@ -18,7 +18,6 @@ export default function Suppliers() {
                     mode="create"
                     setData={setData}
                     onConfirm={() => setIsCreateNewSupplierOpen(false)}
-                    onOpenChange={() => setIsCreateNewSupplierOpen(false)}
                 />
             )}
         </div>

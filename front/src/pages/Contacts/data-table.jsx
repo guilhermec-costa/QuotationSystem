@@ -123,9 +123,6 @@ export function DataTable({
                     mode={actionType}
                     setData={setData}
                     rowData={selectedRow.rowData}
-                    rowIndex={selectedRow.rowIndex}
-                    dataset={table.options.data}
-                    onOpenChange={table.options.meta.closeConfirmationModal}
                     onConfirm={() => {
                         table.options.meta.closeConfirmationModal();
                     }}

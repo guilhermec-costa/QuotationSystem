@@ -1,3 +1,4 @@
+import SupplierService from "@/api/supplierService";
 import { Button, Input, Separator } from "@/components/ui";
 import { notifySuccess } from "@/components/ui/Toast/Toasters";
 import {
@@ -15,12 +16,12 @@ import { z } from "zod";
 const SupplierSchema = z.object({
     name: z.string(),
     address: z.string(),
-    phone: z.string().min(10).max(15),  // Assumindo que o número de telefone tenha entre 10 e 15 caracteres
+    phone: z.string().min(10).max(15),  
     email: z.string().email(),
 });
 
 const SupplierModal = ({
-    rowData, rowIndex, onOpenChange, onConfirm, mode, setData
+    rowData, onConfirm, mode, setData
 }) => {
     const editAvailable = (mode === "edit" || mode === "create") ? true : false;
     const [supplierMessages, setSupplierMessages] = useState({});
@@ -35,7 +36,7 @@ const SupplierModal = ({
             case "create": return { action: "Creating" }
             case "delete": return { action: "Deleting" }
             case "view": return { action: "Viewing" }
-            default: return { action: "Editing" };  // Modo padrão para edição
+            default: return { action: "Editing" };  
         }
     }, [mode]);
 
@@ -43,8 +44,10 @@ const SupplierModal = ({
         setSupplierMessages(generateSupplierModalMessages());
     }, [mode]);
 
-    const deleteSupplierFromData = () => {
-        setData(prevSuppliers => prevSuppliers.filter((_, i) => i !== rowIndex));
+    const deleteSupplierFromData = async () => {
+        SupplierService.delete(rowData.id)
+        notifySuccess("Supplier deleted");
+        setData(await SupplierService.list());
         onConfirm();
     };
 
@@ -53,7 +56,7 @@ const SupplierModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
                     </div>
                 )
@@ -61,7 +64,7 @@ const SupplierModal = ({
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteSupplierFromData}>Delete</Button>
                     </div>
                 )
@@ -69,7 +72,7 @@ const SupplierModal = ({
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
                     </div>
                 )
@@ -77,35 +80,23 @@ const SupplierModal = ({
         }
     }, [mode]);
 
-    const updateSupplierDataset = (newSupplier) => {
+    const updateSupplierDataset = async (newSupplier) => {
         if (mode === "create") {
-            setData(prev => {
-                const lastItemId = Number(prev[prev.length - 1].id);
-                newSupplier = {
-                    ...newSupplier,
-                    id: lastItemId + 1,
-                }
-                return [...prev, newSupplier];
-            });
-            onConfirm();
-            return;
+            await SupplierService.create(newSupplier);
+            notifySuccess("Supplier created");
         }
 
-        setData(prevSuppliers => prevSuppliers.map((supplier, i) => {
-            if (i === rowIndex) {
-                supplier = {
-                    ...supplier,
-                    ...newSupplier
-                }
-            }
-            return supplier;
-        }));
-        notifySuccess("Supplier updated");
+        else if (mode === "edit") {
+            await SupplierService.updateOne(rowData.id, newSupplier);
+            notifySuccess("Supplier updated");
+        }
+
+        setData(await SupplierService.list());
         onConfirm();
     };
 
     return (
-        <Dialog defaultOpen={true} onOpenChange={onOpenChange}>
+        <Dialog defaultOpen={true} onOpenChange={onConfirm}>
             <DialogContent className="bg-secondary text-secondary-foreground">
                 <DialogHeader>
                     <DialogTitle className="text-primary">{supplierMessages.action} supplier</DialogTitle>

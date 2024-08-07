@@ -22,7 +22,7 @@ const ProductSchema = z.object({
 })
 
 const ProductModal = ({
-    rowData, onOpenChange, onConfirm, mode
+    rowData, onConfirm, mode, setData
 }) => {
     const editAvailable = (mode === "edit" || mode === "create") ? true : false;
     const [productMessages, setProductMessages] = useState({});
@@ -44,8 +44,10 @@ const ProductModal = ({
         setProductMessages(generateProductModalMessages);
     }, [mode])
 
-    const deleteProductFromData = () => {
+    const deleteProductFromData = async () => {
         ProductService.delete(rowData.id);
+        notifySuccess("Product deleted");
+        setData(await ProductService.list());
         onConfirm();
     }
 
@@ -54,7 +56,7 @@ const ProductModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
                     </div>
                 )
@@ -62,7 +64,7 @@ const ProductModal = ({
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteProductFromData}>Delete</Button>
                     </div>
                 )
@@ -70,7 +72,7 @@ const ProductModal = ({
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
                     </div>
                 )
@@ -81,19 +83,19 @@ const ProductModal = ({
     const updateProductDataset = async (newProduct) => {
         if (mode === "create") {
             await ProductService.create(newProduct);
-            onConfirm();
-            return;
+            notifySuccess("Product created");
         }
 
         else if (mode === "edit") {
             await ProductService.updateOne(rowData.id, newProduct)
             notifySuccess("Product updated");
-            onConfirm();
         }
 
+        setData(await ProductService.list());
+        onConfirm();
     }
 
-    return <Dialog defaultOpen={true} onOpenChange={onOpenChange}>
+    return <Dialog defaultOpen={true} onOpenChange={onConfirm}>
         <DialogContent className="bg-secondary text-secondary-foreground">
             <DialogHeader>
                 <DialogTitle className="text-primary">{productMessages.action} product</DialogTitle>

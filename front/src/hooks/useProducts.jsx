@@ -1,9 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { useRef } from "react";
 import { useContext, useState, createContext } from "react";
 import { useFirestore } from "./useFirestore";
-import { collection, getDocs } from "firebase/firestore";
-import collections from "@/persistence/collections";
 import ProductService from "@/api/productService";
 
 const ProductContext = createContext({});

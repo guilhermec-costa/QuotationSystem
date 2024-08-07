@@ -1,3 +1,4 @@
+import QuotationService from "@/api/quotationService";
 import { Button, Input, Separator, Select, Label } from "@/components/ui";
 import { notifySuccess } from "@/components/ui/Toast/Toasters";
 import {
@@ -18,13 +19,11 @@ const QuotationSchema = z.object({
         message: "Date must be in the format YYYY-MM-DD"
     }),
     price: z.string(),
-    productName: z.string(),
+    productId: z.string()  
 });
 
 const QuotationModal = ({
     rowData,
-    rowIndex,
-    onOpenChange,
     onConfirm,
     mode,
     setData
@@ -34,9 +33,10 @@ const QuotationModal = ({
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         resolver: zodResolver(QuotationSchema),
         defaultValues: rowData ? rowData : {}
+
     });
 
-    const { data: products } = useProducts(); // Hook para obter os produtos disponíveis
+    const { data: products } = useProducts(); 
 
     const generateQuotationModalMessages = useCallback(() => {
         switch (mode) {
@@ -44,7 +44,7 @@ const QuotationModal = ({
             case "create": return { action: "Creating" };
             case "delete": return { action: "Deleting" };
             case "view": return { action: "Viewing" };
-            default: return { action: "Editing" }; // Modo padrão para edição
+            default: return { action: "Editing" }; 
         }
     }, [mode]);
 
@@ -52,8 +52,10 @@ const QuotationModal = ({
         setQuotationMessages(generateQuotationModalMessages());
     }, [mode]);
 
-    const deleteQuotationFromData = () => {
-        setData(prevQuotations => prevQuotations.filter((_, i) => i !== rowIndex));
+    const deleteQuotationFromData = async () => {
+        QuotationService.delete(rowData.id);
+        notifySuccess("Quotation deleted");
+        setData(await QuotationService.list());
         onConfirm();
     };
 
@@ -62,7 +64,7 @@ const QuotationModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
                     </div>
                 )
@@ -70,7 +72,7 @@ const QuotationModal = ({
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteQuotationFromData}>Delete</Button>
                     </div>
                 )
@@ -78,7 +80,7 @@ const QuotationModal = ({
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onOpenChange}>Cancel</Button>
+                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
                     </div>
                 )
@@ -86,34 +88,23 @@ const QuotationModal = ({
         }
     }, [mode]);
 
-    const updateQuotationDataset = (formData) => {
-        const newQuotation = { ...formData };
-
+    const updateQuotationDataset = async (newQuotation) => {
         if (mode === "create") {
-            setData(prev => {
-                const lastItemId = prev.length > 0 ? prev[prev.length - 1].id : 0;
-                newQuotation.id = lastItemId + 1;
-                return [...prev, newQuotation];
-            });
+            await QuotationService.create(newQuotation);
             notifySuccess("Quotation created!");
-        } else {
-            setData(prevQuotations => prevQuotations.map((quotation, i) => {
-                if (i === rowIndex) {
-                    return {
-                        ...quotation,
-                        ...newQuotation
-                    };
-                }
-                return quotation;
-            }));
-            notifySuccess("Quotation updated!");
         }
 
+        else if (mode === "edit") {
+            await QuotationService.updateOne(rowData.id, newQuotation);
+            notifySuccess("Quotation updated");
+        }
+        
+        setData(await QuotationService.list());
         onConfirm();
     };
 
     return (
-        <Dialog defaultOpen={true} onOpenChange={onOpenChange}>
+        <Dialog defaultOpen={true} onOpenChange={onConfirm}>
             <DialogContent className="bg-secondary text-secondary-foreground">
                 <DialogHeader>
                     <DialogTitle className="text-primary">{quotationMessages.action} quotation</DialogTitle>
@@ -125,8 +116,8 @@ const QuotationModal = ({
                         disabled={!editAvailable}
                         {...register("productName")}
                         className="focus-visible:ring-transparent ring-offset-transparent bg-background md:text-base"
-                        defaultValue={rowData?.productName}
-                        onValueChange={value => setValue("productName", value)}
+                        defaultValue={rowData?.productId}
+                        onValueChange={value => setValue("productId", value)}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select a product" />
@@ -135,7 +126,7 @@ const QuotationModal = ({
                             <SelectGroup>
                                 <SelectLabel>Products</SelectLabel>
                                 {products.map(product => (
-                                    <SelectItem key={product.id} value={product.name}>
+                                    <SelectItem key={product.id} value={product.id}>
                                         {product.name}
                                     </SelectItem>
                                 ))}

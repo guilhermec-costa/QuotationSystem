@@ -121,11 +121,8 @@ export function DataTable({
             {!isNaN(selectedRow.rowIndex) && (
                 <QuotationModal
                     mode={actionType}
-                    setData={setData}
                     rowData={selectedRow.rowData}
-                    rowIndex={selectedRow.rowIndex}
-                    dataset={table.options.data}
-                    onOpenChange={table.options.meta.closeConfirmationModal}
+                    setData={setData}
                     onConfirm={() => {
                         table.options.meta.closeConfirmationModal();
                     }}

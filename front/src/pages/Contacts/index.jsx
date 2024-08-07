@@ -18,7 +18,6 @@ export default function Contacts() {
                     mode="create"
                     setData={setData}
                     onConfirm={() => setIsCreateNewContactModalOpen(false)}
-                    onOpenChange={() => setIsCreateNewContactModalOpen(false)}
                 />
             )}
         </div>

@@ -19,7 +19,11 @@ export default class ProductService {
 
     static async create(product) {
         try {
-            await addDoc(this.productsCollection, product);
+            const adjustedStatusProduct = {
+                ...product,
+                status: product.quantity > 0 ? "In Stock" : "Out of Stock"
+            }
+            await addDoc(this.productsCollection, adjustedStatusProduct);
             console.log(`Product added successfully: ${product.name}`);
         } catch (error) {
             console.error("Failed to add product:", error);
@@ -43,8 +47,12 @@ export default class ProductService {
 
     static async updateOne(productId, updatedProduct) {
         try {
+            const adjustedStatusProduct = {
+                ...updatedProduct,
+                status: updatedProduct.quantity > 0 ? "In Stock" : "Out of Stock"
+            }
             const productRef = doc(this.productsCollection, productId);
-            await updateDoc(productRef, updatedProduct);
+            await updateDoc(productRef, adjustedStatusProduct);
             console.log(`Product updated successfully: ${productId}`);
         } catch (error) {
             console.error("Failed to update product:", error);
