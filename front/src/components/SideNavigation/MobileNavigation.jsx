@@ -1,5 +1,5 @@
 import { Menu, User, BarChart } from "lucide-react";
-import { memo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import NavItem from "./NavItem";
 import {
     Drawer,
@@ -14,9 +14,20 @@ import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { ShoppingBag } from "lucide-react";
 import { Github } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const MobileNavigation = ({ children, navigationItems }) => {
-    const { logout } = useAuth();
+    const { logout, isAdmin } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/auth");
+    }
+
+    useEffect(() => {
+        console.log(isAdmin())
+    }, [isAdmin])
 
     return (
         <>
@@ -30,16 +41,22 @@ const MobileNavigation = ({ children, navigationItems }) => {
                             <Github className="w-[26px] h-[26px]" />
                         </a>
                         <ThemeSwitcher className="w-[26px] h-[26px]" />
-                        <LogOut onClick={logout} className="w-[26px] h-[26px] cursor-pointer" />
+                        <LogOut onClick={handleLogout} className="w-[26px] h-[26px] cursor-pointer" />
                     </div>
                 </div>
                 <DrawerContent className="fixed top-10 bg-primary-foreground shadow-lg transition-transform transform -translate-x-full">
                     <DrawerHeader>
                         <DrawerTitle className="text-primary">Navigation</DrawerTitle>
                         <div className="w-1/2 mx-auto my-4 flex flex-col items-center gap-3">
-                            {navigationItems.map(item =>
-                                <NavItem title={item.title} link={item.link} icon={item.icon} CloseTag={DrawerClose} />)
+                            {navigationItems.map(item => {
+                                console.log("admin only: ", item, " - ", item.adminOnly)
+                                if ((item.adminOnly && isAdmin()) || !item.adminOnly) {
+                                    return (
+                                        <NavItem title={item.title} link={item.link} icon={item.icon} CloseTag={DrawerClose} />
+                                    )
+                                }
                             }
+                            )}
                         </div>
                     </DrawerHeader>
                 </DrawerContent>

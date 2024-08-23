@@ -17,32 +17,38 @@ const Layout = ({ children }) => {
         {
             title: "Dashboards",
             link: "/",
-            icon: <BarChart />
+            icon: <BarChart />,
+            adminOnly: false
         },
         {
             title: "Products",
             link: "/products",
-            icon: <ShoppingBag />
+            icon: <ShoppingBag />,
+            adminOnly: false
         },
         {
             title: "Contacts",
             link: "/contacts",
-            icon: <ContactRound />
+            icon: <ContactRound />,
+            adminOnly: false
         },
         {
-            title: "Profile",
+            title: "User managing",
             link: "/me",
-            icon: <User />
+            icon: <User />,
+            adminOnly: true
         },
         {
             title: "Suppliers",
             link: "/suppliers",
-            icon: <Store />
+            icon: <Store />,
+            adminOnly: false
         },
         {
             title: "Quotations",
             link: "/quotations",
-            icon: <DollarSign />
+            icon: <DollarSign />,
+            adminOnly: false
         },
     ]), [])
 

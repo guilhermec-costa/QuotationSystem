@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import ThemeSwitcher from "../ThemeSwitcher";
@@ -13,7 +13,7 @@ import { Store } from "lucide-react";
 import { DollarSign } from "lucide-react";
 
 const DesktopNavigation = ({ children }) => {
-    const { logout } = useAuth();
+    const { logout, isAdmin, userData } = useAuth();
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const navigate = useNavigate();
 
@@ -29,7 +29,9 @@ const DesktopNavigation = ({ children }) => {
                 <div className="flex flex-col items-start">
                     <NavItem title="Dashboard" link="/" icon={<BarChart />} cb={() => setIsSidebarVisible(false)} />
                     <NavItem title="Products" link={"/products"} icon={<ShoppingBag />} cb={() => setIsSidebarVisible(false)} />
-                    <NavItem title="Profile" link={"/me"} icon={<User />} cb={() => setIsSidebarVisible(false)} />
+                    {isAdmin() && (
+                        <NavItem title="User Managing" link={"/me"} icon={<User />} cb={() => setIsSidebarVisible(false)} />
+                    )}
                     <NavItem title="Contacts" link={"/contacts"} icon={<ContactRound />} cb={() => setIsSidebarVisible(false)} />
                     <NavItem title="Suppliers" link={"/suppliers"} icon={<Store />} cb={() => setIsSidebarVisible(false)} />
                     <NavItem title="Quotations" link={"/quotations"} icon={<DollarSign />} cb={() => setIsSidebarVisible(false)} />

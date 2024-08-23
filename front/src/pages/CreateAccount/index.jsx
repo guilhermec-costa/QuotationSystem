@@ -47,7 +47,7 @@ const CreateAccount = ({ visible, setAuthStep, authStep }) => {
 
     return visible && (
         <>
-            <h3 className="text-card-foreground text-lg md:text-xl lg:text-3xl">Password recovering</h3>
+            <h3 className="text-card-foreground text-lg md:text-xl lg:text-3xl">Create account</h3>
             <form onSubmit={handleSubmit(handleCreateAccountSubmit)} className="w-full lg:w-4/5">
                 <Separator className="bg-input mt-3" />
                 <div className="w-full data mt-5">

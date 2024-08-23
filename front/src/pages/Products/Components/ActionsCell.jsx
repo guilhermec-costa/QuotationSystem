@@ -1,4 +1,4 @@
-import ActionsEllipses from "./ActionsEllipses";
+import ActionsEllipses from "@/components/ActionsEllipses";
 import { View, Pencil, Delete } from "lucide-react";
 
 const ActionsCell = ({

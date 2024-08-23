@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
 import { firebaseConfig } from "../env";
@@ -19,6 +19,11 @@ export const AuthProvider = ({ children }) => {
         initializeApp(firebaseConfig);
         setAuthHandler(getAuth());
     }, []);
+
+    const isAdmin = useCallback(() => {
+        const pattern = /adm|admin|administrator/i
+        return pattern.test(userData.email);
+    }, [userData])
 
     const login = async (credentials) => {
         const { email, password } = credentials;
@@ -67,7 +72,8 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         recoverPassword,
-        isLogged
+        isLogged,
+        isAdmin
     }), [userData, login]);
 
     return <AuthContext.Provider value={ctxValue}>{children}</AuthContext.Provider>
