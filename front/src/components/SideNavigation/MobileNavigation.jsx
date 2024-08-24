@@ -25,10 +25,6 @@ const MobileNavigation = ({ children, navigationItems }) => {
         navigate("/auth");
     }
 
-    useEffect(() => {
-        console.log(isAdmin())
-    }, [isAdmin])
-
     return (
         <>
             <Drawer direction="bottom">
@@ -50,7 +46,7 @@ const MobileNavigation = ({ children, navigationItems }) => {
                         <div className="w-1/2 mx-auto my-4 flex flex-col items-center gap-3">
                             {navigationItems.map(item => {
                                 console.log("admin only: ", item, " - ", item.adminOnly)
-                                if ((item.adminOnly && isAdmin()) || !item.adminOnly) {
+                                if ((item.adminOnly && isAdmin) || !item.adminOnly) {
                                     return (
                                         <NavItem title={item.title} link={item.link} icon={item.icon} CloseTag={DrawerClose} />
                                     )

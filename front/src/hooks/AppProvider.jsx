@@ -16,10 +16,11 @@ const AppProvider = ({ children }) => {
 						<ContactsProvider>
 							<ProductsProvider>
 								<QuotationsProvider>
-									<AuthProvider>
-										<UserProvider>{children}
-											</UserProvider>
-											</AuthProvider>
+									<UserProvider>
+										<AuthProvider>
+											{children}
+										</AuthProvider>
+									</UserProvider>
 								</QuotationsProvider>
 							</ProductsProvider>
 						</ContactsProvider>

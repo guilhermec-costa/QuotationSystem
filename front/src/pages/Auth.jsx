@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { useState } from "react";
-import RecoverPassword from "../RecoverPassword";
-import CreateAccount from "../CreateAccount";
-import Login from "../Login";
+import RecoverPassword from "./RecoverPassword";
+import CreateAccount from "./CreateAccount";
+import Login from "./Login";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 
@@ -15,6 +15,7 @@ const Auth = () => {
             <div className="w-full min-w-[300px] md:w-[70%] flex justify-center items-center bg-background p-3 rounded-lg shadow-lg shadow-background-500/50">
                 <div className="min-h-full hidden bg-gradient-to-r from-primary to-secondary xl:flex xl:w-1/2 xl:rounded-l-lg xl:rounded-r-sm xl:h-[580px]
                     justify-center items-center">
+                    {/* <img src="src\assets\infnet_logo.png" alt="" className="w-[128px]"/> */}
                 </div>
                 <div className="
                     bg-background rounded-lg w-[90%]  

@@ -15,25 +15,33 @@ export const AuthProvider = ({ children }) => {
     });
     const [authHandler, setAuthHandler] = useState(null);
     const [isLogged, setIsLogged] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         initializeApp(firebaseConfig);
         setAuthHandler(getAuth());
     }, []);
 
-    const isAdmin = useCallback(() => {
+    const checkIsAdmin = (email) => {
         const pattern = /adm|admin|administrator/i
-        return pattern.test(userData.email);
-    }, [userData])
+        return pattern.test(email);
+    };
 
     const login = async (credentials) => {
         const { email, password } = credentials;
         try {
-            const response = await signInWithEmailAndPassword(authHandler, email, password);
+            let response = await signInWithEmailAndPassword(authHandler, email, password);
             if (response.user.uid) {
                 setIsLogged(true);
                 setUserData(response.user);
                 localStorage.setItem("userData", JSON.stringify(response.user));
+
+                const hasAdministration = checkIsAdmin(response.user.email);
+                setIsAdmin(hasAdministration);
+                response = {
+                    ...response,
+                    hasAdmin: hasAdministration
+                }
                 return response;
             }
         } catch (err) {

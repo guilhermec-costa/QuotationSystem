@@ -18,7 +18,7 @@ const loginSchema = z.object({
 const Login = ({ visible, setAuthStep, authStep }) => {
     const [isPwdVisible, setIsPwdVisible] = useState(false);
     const navigate = useNavigate();
-    const { login, logout } = useAuth();
+    const { login, logout, isAdmin } = useAuth();
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(loginSchema)
     });
@@ -26,6 +26,10 @@ const Login = ({ visible, setAuthStep, authStep }) => {
     useEffect(() => {
         reset();
     }, [authStep])
+
+    useEffect(() => {
+        console.log(isAdmin)
+    }, [isAdmin])
 
     const handleLoginSubmit = async (credentials) => {
         try {
@@ -37,7 +41,8 @@ const Login = ({ visible, setAuthStep, authStep }) => {
                 navigate("/auth");
                 return
             }
-            notifySuccess("Logged");
+            const welcomeMessage = `You are welcome again! You have logged as ${loginResponse.hasAdmin ? "Administrator" : "Colaborator"}`
+            notifySuccess(welcomeMessage)
             navigate("/");
         } catch (err) {
             notifyError(err.message)

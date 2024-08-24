@@ -17,7 +17,7 @@ export default class UserService {
 
     static async getUserStatus(user) {
         const usersList = await this.list();
-        const currentUserStatus = usersList.filter(u => u.email === user.email)[0].status;
+        const currentUserStatus = usersList.filter(u => u.email === user.email)[0]?.status;
         return currentUserStatus
     }
 

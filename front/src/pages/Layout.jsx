@@ -77,6 +77,7 @@ const Layout = ({ children }) => {
                         </div>
                     )
             }
+            <footer className="fixed bottom-0 bg-secondary w-full h-[40px] flex justify-center items-center">Made by Guilherme China</footer>
         </div>
     );
 }
