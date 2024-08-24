@@ -1,11 +1,9 @@
 import { useMemo } from "react";
 import { useContext, useState, createContext } from "react";
-import { useProducts } from "./useProducts";
 import { useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
 import { useFirestore } from "./useFirestore";
-import collections from "@/persistence/collections";
 import ProductService from "@/api/productService";
+import QuotationService from "@/api/quotationService";
 
 const QuotationsContext = createContext({});
 
@@ -16,10 +14,7 @@ const QuotationsProvider = ({ children }) => {
 
     const fetchQuotations = async () => {
         try {
-            const quotationsCollection = collection(db, collections.QUOTATIONS);
-            const quotationsSnapshot = await getDocs(quotationsCollection);
-            const quotationsList = quotationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setQuotationDataset(quotationsList);
+            setQuotationDataset(await QuotationService.list());
         } catch (error) {
             console.error("Error fetching quotations:", error);
         }
@@ -49,7 +44,7 @@ const QuotationsProvider = ({ children }) => {
         data: quotationDataset,
         setData: (quotations) => {
             setQuotationDataset(quotations);
-            fetchProducts(); 
+            fetchProducts();
         }
     }), [quotationDataset, products]);
 

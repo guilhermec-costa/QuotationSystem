@@ -37,6 +37,8 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem("userData", JSON.stringify(response.user));
 
                 const hasAdministration = checkIsAdmin(response.user.email);
+                localStorage.setItem("isAdmin", hasAdministration)
+
                 setIsAdmin(hasAdministration);
                 response = {
                     ...response,

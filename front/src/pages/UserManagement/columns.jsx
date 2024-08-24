@@ -1,5 +1,5 @@
 import ActionsCell from "./Components/ActionsCell";
-import InputFilterDrawer from "./Components/InputFilterDrawer";
+import InputFilterDrawer from "@/components/InputFilterDrawer";
 
 export const columns = [
     {

@@ -4,19 +4,17 @@ import { useMemo } from "react";
 import { useEffect } from "react";
 import { useContext, useState, createContext } from "react";
 import { useFirestore } from "./useFirestore";
+import SupplierService from "@/api/supplierService";
 
 const SuppliersContext = createContext({});
 
 const SuppliersProvider = ({ children }) => {
-    const {app, db} = useFirestore();
+    const { app, db } = useFirestore();
     const [supplierDataset, setSupplierDataset] = useState([]);
     useEffect(() => {
         const fetchSuppliers = async () => {
             try {
-                const suppliersCollection = collection(db, collections.SUPPLIERS);
-                const suppliersSnapshot = await getDocs(suppliersCollection);
-                const suppliersList = suppliersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setSupplierDataset(suppliersList);
+                setSupplierDataset(await SupplierService.list());
             } catch (error) {
                 console.error("Error fetching suppliers:", error);
             }

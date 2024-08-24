@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useContext, useState, createContext } from "react";
 import { useFirestore } from "./useFirestore";
 import UserService from "@/api/userService";
-import { data } from "autoprefixer";
 
 const UserContext = createContext({});
 

@@ -4,6 +4,7 @@ import { useFirestore } from "./useFirestore";
 import { useSuppliers } from "./useSuppliers";
 import collections from "@/persistence/collections";
 import SupplierService from "@/api/supplierService";
+import ContactService from "@/api/contactService";
 
 const ContactsContext = createContext({});
 
@@ -14,10 +15,7 @@ const ContactsProvider = ({ children }) => {
 
     const fetchContacts = async () => {
         try {
-            const contactsCollection = collection(db, collections.CONTACTS);
-            const contactsSnapshot = await getDocs(contactsCollection);
-            const contactsList = contactsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setContactDataset(contactsList);
+            setContactDataset(await ContactService.list());
         } catch (error) {
             console.error("Error fetching contacts:", error);
         }
@@ -30,7 +28,7 @@ const ContactsProvider = ({ children }) => {
 
     useEffect(() => {
         fetchContacts();
-        fetchSuppliers(); 
+        fetchSuppliers();
     }, [app, db]);
 
     useEffect(() => {
@@ -50,7 +48,7 @@ const ContactsProvider = ({ children }) => {
         data: contactDataset,
         setData: (contacts) => {
             setContactDataset(contacts);
-            fetchSuppliers(); 
+            fetchSuppliers();
         }
     }), [contactDataset, suppliers]);
 

@@ -1,16 +1,7 @@
 import ActionsCell from "./Components/ActionsCell";
-import InputFilterDrawer from "./Components/InputFilterDrawer";
+import InputFilterDrawer from "@/components/InputFilterDrawer";
 
 export const columns = [
-    // {
-    //     accessorKey: "id",
-    //     header: "Id",
-    //     cell: (props) => (
-    //         <div>{props.getValue()}</div>
-    //     ),
-    //     size: 30,
-    //     minSize: 30
-    // },
     {
         accessorKey: "name",
         header: "Name",

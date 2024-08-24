@@ -46,7 +46,7 @@ const DesktopNavigation = ({ children }) => {
                     <div className="flex-1 overflow-y-auto px-4">
                         <NavItem title="Dashboard" link="/" icon={<BarChart />} cb={() => setIsSidebarVisible(false)} />
                         <NavItem title="Products" link="/products" icon={<ShoppingBag />} cb={() => setIsSidebarVisible(false)} />
-                        {isAdmin && (
+                        {(isAdmin || Boolean(localStorage.getItem("isAdmin"))) && (
                             <NavItem title="User Managing" link="/me" icon={<User />} cb={() => setIsSidebarVisible(false)} />
                         )}
                         <NavItem title="Contacts" link="/contacts" icon={<ContactRound />} cb={() => setIsSidebarVisible(false)} />
