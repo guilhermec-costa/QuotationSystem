@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import UserService from '@/api/userService';
 
 
 const accountCreationSchema = z.object({
@@ -31,6 +32,13 @@ const Me = () => {
     });
 
     const password = watch('password');
+
+    useEffect(() => {
+        const getUsers = async () => {
+            console.log(await UserService.list());
+        }
+        getUsers();
+    }, [])
 
     const onSubmit = async (credentials) => {
         try {

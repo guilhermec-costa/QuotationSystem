@@ -78,6 +78,17 @@ const router = createBrowserRouter([
         errorElement: < ErrorBoundary />
     },
     {
+        path: "/purchase-requisition",
+        element: (
+            <PrivateRouter>
+                <Layout>
+                    <Quotations />
+                </Layout>
+            </PrivateRouter>
+        ),
+        errorElement: < ErrorBoundary />
+    },
+    {
         path: "/products/:id",
         element: (
             <PrivateRouter>

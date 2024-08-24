@@ -6,7 +6,7 @@ import QuotationModal from './Components/QuotationModal';
 import { ArrowDownUp } from 'lucide-react';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
-import Pagination from './Components/Pagination';
+import Pagination from '@/components/Pagination';
 
 export function DataTable({
     data,

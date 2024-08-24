@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useMemo } from "react";
 import { notifyError, notifySuccess } from "@/components/ui/Toast/Toasters";
+import UserService from "@/api/userService";
 
 const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
@@ -59,6 +60,7 @@ export const AuthProvider = ({ children }) => {
         const { email, password } = credentials;
         try {
             await createUserWithEmailAndPassword(authHandler, email, password);
+            await UserService.create({ email, status: "ACTIVE " });
             notifySuccess("Account created");
         } catch (err) {
             notifyError(err.message);
