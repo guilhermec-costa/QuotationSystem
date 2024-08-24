@@ -18,7 +18,7 @@ export function DataTable({
     const [columnFilters, setColumnFilters] = useState([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 9
+        pageSize: 5
     });
 
     const table = useReactTable({
@@ -52,7 +52,7 @@ export function DataTable({
 
     return (
         <>
-            <div className='w-full rounded-md border bg-secondary mt-3'>
+            <div className='w-full rounded-md border bg-secondary mt-3 overflow-y-auto'>
                 <Table className="w-[100%] mh-[25%] relative">
                     <TableHeader className="bg-secondary text-primary rounded-md">
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -61,7 +61,7 @@ export function DataTable({
                                     const { searchable, FilterComponent, sortable } = header.column.columnDef.meta || { undefined, undefined, undefined };
                                     return (
                                         <TableHead key={header.id} className={`relative`} style={{ width: `${header.getSize()}px` }}>
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-between items-center text-lg">
                                                 {header.column.columnDef.header}
                                                 <div
                                                     onMouseDown={header.getResizeHandler()}

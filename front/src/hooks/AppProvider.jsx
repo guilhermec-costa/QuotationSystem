@@ -2,6 +2,7 @@ import { AuthProvider } from "./useAuth"
 import { ContactsProvider } from "./useContacts";
 import { FirestoreProvider } from "./useFirestore";
 import { ProductsProvider } from "./useProducts";
+import { PurchaseRequisitionProvider } from "./usePurchaseRequisitions";
 import { QuotationsProvider } from "./useQuotations";
 import { SuppliersProvider } from "./useSuppliers";
 import { ThemeProvider } from "./useTheme";
@@ -14,13 +15,15 @@ const AppProvider = ({ children }) => {
 				<UserProvider>
 					<SuppliersProvider>
 						<ContactsProvider>
-							<ProductsProvider>
-								<QuotationsProvider>
-									<AuthProvider>
-										{children}
-									</AuthProvider>
-								</QuotationsProvider>
-							</ProductsProvider>
+							<PurchaseRequisitionProvider>
+								<ProductsProvider>
+									<QuotationsProvider>
+										<AuthProvider>
+											{children}
+										</AuthProvider>
+									</QuotationsProvider>
+								</ProductsProvider>
+							</PurchaseRequisitionProvider>
 						</ContactsProvider>
 					</SuppliersProvider>
 				</UserProvider>

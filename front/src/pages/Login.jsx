@@ -27,10 +27,6 @@ const Login = ({ visible, setAuthStep, authStep }) => {
         reset();
     }, [authStep])
 
-    useEffect(() => {
-        console.log(isAdmin)
-    }, [isAdmin])
-
     const handleLoginSubmit = async (credentials) => {
         try {
             const loginResponse = await login(credentials);

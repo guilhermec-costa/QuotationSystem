@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { ShoppingBag } from "lucide-react";
 import { Github } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Separator } from "../ui";
 
 const MobileNavigation = ({ children, navigationItems }) => {
     const { logout, isAdmin } = useAuth();
@@ -40,15 +41,17 @@ const MobileNavigation = ({ children, navigationItems }) => {
                         <LogOut onClick={handleLogout} className="w-[26px] h-[26px] cursor-pointer" />
                     </div>
                 </div>
-                <DrawerContent className="fixed top-10 bg-primary-foreground shadow-lg transition-transform transform -translate-x-full">
+                <DrawerContent className="fixed top-10 bg-background shadow-lg transition-transform transform -translate-x-full">
                     <DrawerHeader>
                         <DrawerTitle className="text-primary">Navigation</DrawerTitle>
-                        <div className="w-1/2 mx-auto my-4 flex flex-col items-center gap-3">
+                        <div className=" gap-2 text-lg flex-col items-center">
                             {navigationItems.map(item => {
-                                console.log("admin only: ", item, " - ", item.adminOnly)
                                 if ((item.adminOnly && isAdmin) || !item.adminOnly) {
                                     return (
-                                        <NavItem title={item.title} link={item.link} icon={item.icon} CloseTag={DrawerClose} />
+                                        <>
+                                            <NavItem title={item.title} link={item.link} icon={item.icon} CloseTag={DrawerClose} />
+                                            <Separator />
+                                        </>
                                     )
                                 }
                             }

@@ -10,7 +10,7 @@ export default function Products() {
     const { data, setData } = useQuotations();
     const [isCreateNewQuotationModalOpen, setIsCreateNewQuotationModalOpen] = useState(false);
     return (
-        <div className="flex flex-col items-start w-[80%] mx-auto mt-6">
+        <div className="flex flex-col items-start w-[50%] mx-auto mt-10">
             <Button className="w-fit" onClick={() => setIsCreateNewQuotationModalOpen(prev => !prev)}><CirclePlus className="mr-2" />Create quotation</Button>
             <DataTable columns={columns} data={data} setData={setData} />
             {isCreateNewQuotationModalOpen && (

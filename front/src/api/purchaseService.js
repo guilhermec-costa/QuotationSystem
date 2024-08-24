@@ -20,4 +20,14 @@ export default class PurchaseService {
             console.error("Failed to add purchase:", error);
         }
     }
+
+    static async list() {
+        try {
+            const purchaseRequisitionSnapshot = await getDocs(this.purchaseCollection);
+            const purchasesList = purchaseRequisitionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            return purchasesList;
+        } catch (error) {
+            console.error("Failed to fetch purchase requisitions:", error);
+        }
+    }
 }
