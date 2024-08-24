@@ -5,23 +5,29 @@ import { ProductsProvider } from "./useProducts";
 import { QuotationsProvider } from "./useQuotations";
 import { SuppliersProvider } from "./useSuppliers";
 import { ThemeProvider } from "./useTheme";
+import { UserProvider } from "./useUsers";
 
 const AppProvider = ({ children }) => {
-    return (
-        <ThemeProvider defaultTheme="dark" storageThemeKey="cotation-theme">
-            <FirestoreProvider>
-                <SuppliersProvider>
-                    <ContactsProvider>
-                        <ProductsProvider>
-                            <QuotationsProvider>
-                                <AuthProvider>{children}</AuthProvider>
-                            </QuotationsProvider>
-                        </ProductsProvider>
-                    </ContactsProvider>
-                </SuppliersProvider>
-            </FirestoreProvider>
-        </ThemeProvider>
-    )
+	return (
+		<ThemeProvider defaultTheme="dark" storageThemeKey="cotation-theme">
+			<FirestoreProvider>
+				<UserProvider>
+					<SuppliersProvider>
+						<ContactsProvider>
+							<ProductsProvider>
+								<QuotationsProvider>
+									<AuthProvider>
+										<UserProvider>{children}
+											</UserProvider>
+											</AuthProvider>
+								</QuotationsProvider>
+							</ProductsProvider>
+						</ContactsProvider>
+					</SuppliersProvider>
+				</UserProvider>
+			</FirestoreProvider>
+		</ThemeProvider>
+	)
 }
 
 export default AppProvider;

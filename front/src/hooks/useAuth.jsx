@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
         const { email, password } = credentials;
         try {
             await createUserWithEmailAndPassword(authHandler, email, password);
-            await UserService.create({ email, status: "ACTIVE " });
+            await UserService.create({ email, status: "Active" });
             notifySuccess("Account created");
         } catch (err) {
             notifyError(err.message);

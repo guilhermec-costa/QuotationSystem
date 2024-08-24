@@ -10,7 +10,7 @@ export default function Products() {
     const { data, setData } = useProducts();
     const [isCreateNewProductModalOpen, setIsCreateNewProductModalOpen] = useState(false);
     return (
-        <div className="flex flex-col items-start w-[80%] mx-auto mt-6">
+        <div className="flex flex-col items-start w-[80%] mx-auto mt-6 overflow-y-auto">
             <Button className="w-fit" onClick={() => setIsCreateNewProductModalOpen(prev => !prev)}><CirclePlus className="mr-2" />Create product</Button>
             <DataTable columns={columns} data={data} setData={setData} />
             {isCreateNewProductModalOpen && (

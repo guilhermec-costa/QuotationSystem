@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LogOut, ShoppingCart, BarChart, User, ShoppingBag, SquareChevronLeft, SquareChevronRight, Github, Store, DollarSign, ContactRound } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,18 @@ const DesktopNavigation = ({ children }) => {
         logout();
         navigate("/auth");
     };
+
+    useEffect(() => {
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                setIsSidebarVisible(false)
+            }
+        })
+
+        return () => {
+            window.removeEventListener("keydown", window);
+        }
+    }, []);
 
     return (
         <>

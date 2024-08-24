@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useReactTable, getCoreRowModel, getFilteredRowModel, getSortedRowModel, getPaginationRowModel } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { flexRender } from '@tanstack/react-table';
-import QuotationModal from './Components/QuotationModal';
 import { ArrowDownUp } from 'lucide-react';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
@@ -10,11 +9,8 @@ import Pagination from '@/components/Pagination';
 
 export function DataTable({
     data,
-    setData,
     columns
 }) {
-    const [selectedRow, setSelectedRow] = useState({});
-    const [actionType, setActionType] = useState("");
     const [columnFilters, setColumnFilters] = useState([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
@@ -34,25 +30,11 @@ export function DataTable({
             pagination
         },
         columnResizeMode: "onChange",
-        meta: {
-            renderProductModal: (rowData, rowIndex, mode) => {
-                setActionType(mode);
-                setSelectedRow({ rowData, rowIndex });
-            },
-
-            deleteProductFromTable: () => {
-                setData(prevProducts => prevProducts.filter((_, i) => i !== selectedRow.rowIndex))
-            },
-
-            closeConfirmationModal: () => {
-                setSelectedRow({})
-            }
-        }
     });
 
     return (
         <>
-            <div className='w-full rounded-md border bg-secondary mt-3'>
+            <div className='w-[80%] rounded-md border bg-secondary mt-3 mx-auto'>
                 <Table className="w-[100%] mh-[25%] relative">
                     <TableHeader className="bg-secondary text-primary rounded-md">
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -118,16 +100,6 @@ export function DataTable({
                 </Table>
                 <Pagination table={table} setPagination={setPagination} pagination={pagination} />
             </div>
-            {!isNaN(selectedRow.rowIndex) && (
-                <QuotationModal
-                    mode={actionType}
-                    rowData={selectedRow.rowData}
-                    setData={setData}
-                    onConfirm={() => {
-                        table.options.meta.closeConfirmationModal();
-                    }}
-                />
-            )}
         </>
     );
 }

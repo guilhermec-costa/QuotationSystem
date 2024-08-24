@@ -10,7 +10,7 @@ const Contacts = lazy(() => import("../pages/Contacts"));
 const Suppliers = lazy(() => import("../pages/Suppliers"));
 const Quotations = lazy(() => import("../pages/Quotations"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
-const Me = lazy(() => import("../pages/Me"));
+const UserManagement = lazy(() => import("@/pages/UserManagement"))
 
 const router = createBrowserRouter([
     {
@@ -89,21 +89,11 @@ const router = createBrowserRouter([
         errorElement: < ErrorBoundary />
     },
     {
-        path: "/products/:id",
-        element: (
-            <PrivateRouter>
-                <Layout>
-                    <Me />
-                </Layout>
-            </PrivateRouter>
-        ),
-    },
-    {
         path: "/me",
         element: (
             <PrivateRouter>
                 <Layout>
-                    <Me />
+                    <UserManagement />
                 </Layout>
             </PrivateRouter>
         ),

@@ -1,14 +1,12 @@
-import React, { useState, memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button, Input, Label } from '@/components/ui';
 import { useForm } from 'react-hook-form';
-import { notifyError, notifySuccess } from '@/components/ui/Toast/Toasters';
+import { notifyError } from '@/components/ui/Toast/Toasters';
 import { useAuth } from '@/hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import UserService from '@/api/userService';
-
 
 const accountCreationSchema = z.object({
     email: z.string().email("Invalid email format").trim(),
@@ -19,12 +17,11 @@ const accountCreationSchema = z.object({
     path: ["confirmPassword"]
 });
 
-const Me = () => {
+const CreateUserModal = ({onConfirm, setData}) => {
     const { createAccount } = useAuth();
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
         watch
     } = useForm({
@@ -33,26 +30,19 @@ const Me = () => {
 
     const password = watch('password');
 
-    useEffect(() => {
-        const getUsers = async () => {
-            console.log(await UserService.list());
-        }
-        getUsers();
-    }, [])
-
     const onSubmit = async (credentials) => {
         try {
             await createAccount(credentials);
+            setData(await UserService.list());
         } catch (err) {
             notifyError(err.message)
         }
+
+        onConfirm();
     };
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button>Cadastrar Usuário</Button>
-            </DialogTrigger>
+        <Dialog defaultOpen onOpenChange={onConfirm}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Cadastro de Usuário</DialogTitle>
@@ -106,4 +96,4 @@ const Me = () => {
     );
 }
 
-export default memo(Me);
+export default memo(CreateUserModal);

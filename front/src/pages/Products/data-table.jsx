@@ -18,7 +18,7 @@ export function DataTable({
     const [columnFilters, setColumnFilters] = useState([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 7
+        pageSize: 9
     });
 
     const table = useReactTable({
