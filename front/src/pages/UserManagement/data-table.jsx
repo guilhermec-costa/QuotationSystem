@@ -6,11 +6,13 @@ import { ArrowDownUp } from 'lucide-react';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
 import Pagination from '@/components/Pagination';
+import ToggleUserStatusModal from './Components/ToggleUserStatusModal';
 
 export function DataTable({
     data,
     columns
 }) {
+    const [selectedRow, setSelectedRow] = useState({});
     const [columnFilters, setColumnFilters] = useState([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
@@ -30,13 +32,18 @@ export function DataTable({
             pagination
         },
         columnResizeMode: "onChange",
+        meta: {
+            toggleUserStatusModal: (rowData) => {
+                setSelectedRow(rowData);
+            }
+        }
     });
 
     return (
         <>
-            <div className='w-[80%] rounded-md border bg-secondary mt-3 mx-auto'>
+            <div className='w-[80%] rounded-md bg-secondary mt-3 mx-auto'>
                 <Table className="w-[100%] mh-[25%] relative">
-                    <TableHeader className="bg-secondary text-primary rounded-md">
+                    <TableHeader className="bg-secondary text-primary">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
@@ -100,6 +107,14 @@ export function DataTable({
                 </Table>
                 <Pagination table={table} setPagination={setPagination} pagination={pagination} />
             </div>
+            {Object.keys(selectedRow).length > 0 && (
+                <ToggleUserStatusModal
+                    row={selectedRow}
+                    onConfirm={() => {
+                        setSelectedRow({})
+                    }}
+                />
+            )}
         </>
     );
 }

@@ -2,7 +2,7 @@ import ActionsEllipses from "@/components/ActionsEllipses";
 import { View, Pencil, Delete } from "lucide-react";
 
 const ActionsCell = ({
-    getValue, row, column, table
+    row, table
 }) => {
     const { renderProductModal } = table.options.meta;
     return <ActionsEllipses actions={[

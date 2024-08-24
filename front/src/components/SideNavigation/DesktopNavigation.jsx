@@ -4,10 +4,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitcher from "../ThemeSwitcher";
 import NavItem from "./NavItem";
+import useClickOutside from "@/hooks/useClickOutside";
 
 const DesktopNavigation = ({ children }) => {
     const { logout, isAdmin } = useAuth();
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+    const sidebarRef = useClickOutside(() => setIsSidebarVisible(false));
+
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -29,7 +32,8 @@ const DesktopNavigation = ({ children }) => {
 
     return (
         <>
-            <div className={`fixed top-0 bottom-0 left-0 bg-card text-card-foreground z-20 shadow-lg transition-transform duration-300 ease-in-out transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}>
+            <div className={`fixed top-0 bottom-0 left-0 bg-card text-card-foreground z-20 shadow-lg transition-transform duration-300 ease-in-out transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}
+                ref={sidebarRef}>
                 <div className="flex flex-col h-full">
                     <div className="h-[50px] flex justify-end items-center pr-3">
                         <div

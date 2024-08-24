@@ -14,6 +14,22 @@ export default class UserService {
             console.error("Failed to add purchase:", error);
         }
     }
+
+    static async getUserStatus(user) {
+        const usersList = await this.list();
+        const currentUserStatus = usersList.filter(u => u.email === user.email)[0].status;
+        return currentUserStatus
+    }
+
+    static async inactivate(userId, updatedUser) {
+        try {
+            const userRef = doc(this.userCollection, userId);
+            await updateDoc(userRef, updatedUser);
+            console.log(`User updated successfully: ${userId}`);
+        } catch (error) {
+            console.error("Failed to update user:", error);
+        }
+    }
     static async list() {
         try {
             const userSnapshot = await getDocs(this.userCollection);

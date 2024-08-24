@@ -4,7 +4,7 @@ import { useEffect, useRef, useCallback } from 'react';
     * @param {Function} callback 
     * @param {HTMLElement[]} excludeDeps 
     * */
-function useClickOutside(callback, includeDeps) {
+function useClickOutside(callback) {
     const ref = useRef(null);
 
     const handleClickOutside = useCallback(

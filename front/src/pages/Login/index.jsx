@@ -8,6 +8,7 @@ import { CircleDollarSign, Eye, EyeOff, LoaderCircle, Mail } from "lucide-react"
 import { Input, Button, Separator } from "@/components/ui";
 import { notifyError, notifySuccess } from "@/components/ui/Toast/Toasters";
 import { useEffect } from "react";
+import UserService from "@/api/userService";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email format").trim(),
@@ -17,7 +18,7 @@ const loginSchema = z.object({
 const Login = ({ visible, setAuthStep, authStep }) => {
     const [isPwdVisible, setIsPwdVisible] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(loginSchema)
     });
@@ -28,7 +29,14 @@ const Login = ({ visible, setAuthStep, authStep }) => {
 
     const handleLoginSubmit = async (credentials) => {
         try {
-            await login(credentials);
+            const loginResponse = await login(credentials);
+            const currentUserStatus = await UserService.getUserStatus(loginResponse.user);
+            if(currentUserStatus === "Inactive") {
+                notifyError(`User ${loginResponse.user.email} is current blocked`);
+                await logout();
+                navigate("/auth");
+                return
+            }
             notifySuccess("Logged");
             navigate("/");
         } catch (err) {

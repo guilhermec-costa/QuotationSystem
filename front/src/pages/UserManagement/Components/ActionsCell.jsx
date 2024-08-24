@@ -1,19 +1,15 @@
 import ActionsEllipses from "@/components/ActionsEllipses";
-import { View, Pencil, Delete } from "lucide-react";
+import { View, ShieldX, ShieldCheck } from "lucide-react";
 
 const ActionsCell = ({
-    getValue, row, column, table
+    row, table
 }) => {
+    const { toggleUserStatusModal } = table.options.meta;
     return <ActionsEllipses actions={[
         {
-            title: "Edit",
-            // callback: () => renderProductModal(row.original, row.index, "edit"),
-            icon: <Pencil className="w-[18px] mr-3" />
-        },
-        {
-            title: "Delete",
-            // callback: () => renderProductModal(row.original, row.index, "delete"),
-            icon: <Delete className="w-[18px] mr-3" />
+            title: row.original.status === "Active" ? "Inactivate" : "Activate",
+            icon: row.original.status === "Active" ? <ShieldX className="w-[18px] mr-3" /> : <ShieldCheck className="w-[18px] mr-3" />,
+            callback: () => toggleUserStatusModal(row.original)
         },
     ]} />
 }
