@@ -6,12 +6,15 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '@/hooks/useAuth';
 import { notifyError, notifySuccess, notifyWarning } from '@/components/ui/Toast/Toasters';
 import PurchaseService from '@/api/purchaseService';
+import { usePurchaseRequisition } from '@/hooks/usePurchaseRequisitions';
+import { getFormmatedPurchases } from '@/hooks/usePurchaseRequisitions';
 
 const PurchaseModal = ({ product, isOpen, onClose }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { userData } = useAuth();
+    const { setData: setPurchaseRequisitions } = usePurchaseRequisition();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const userId = userData.uid;
         const quantityToPurchase = parseInt(data.quantity, 10);
         if (quantityToPurchase > product.quantity) {
@@ -19,7 +22,9 @@ const PurchaseModal = ({ product, isOpen, onClose }) => {
             return;
         }
         try {
-            PurchaseService.create(product.id, userId, quantityToPurchase)
+            await PurchaseService.create(product.id, userId, quantityToPurchase)
+            setPurchaseRequisitions(await PurchaseService.list());
+            setPurchaseRequisitions(await getFormmatedPurchases());
         } catch (error) {
             notifyError("Failed to create purchase requisition: ", error.message);
         }

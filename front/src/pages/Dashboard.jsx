@@ -1,14 +1,14 @@
 import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShoppingCart, Users, Activity, DollarSign } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Dashboard = () => {
     const projectInfo = {
         name: "Quotation System",
         description: "A platform to manage and track quotations efficiently.",
         version: "v1.0.0",
-        contributors: ["Guilherme China" ],
+        contributors: ["Guilherme China"],
         repository: "https://github.com/GuiC0506/quotation-system"
     };
 
@@ -70,14 +70,14 @@ const Dashboard = () => {
             <div className="bg-card p-4 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4">Sales & Revenue Over Time</h2>
                 <ResponsiveContainer width="100%" height={250}>
-                    <LineChart data={chartData}>
+                    <AreaChart data={chartData}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
-                        <Line type="monotone" dataKey="sales" stroke="#8884d8" />
-                        <Line type="monotone" dataKey="revenue" stroke="#82ca9d" />
-                    </LineChart>
+                        <Area type="monotone" dataKey="sales" stroke="#8884d8" fill="#8884d8" />
+                        <Area type="monotone" dataKey="revenue" stroke="#82ca9d" fill="#82ca9d" />
+                    </AreaChart>
                 </ResponsiveContainer>
             </div>
 
