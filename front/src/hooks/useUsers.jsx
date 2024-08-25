@@ -14,6 +14,7 @@ const UserProvider = ({ children }) => {
         const fetchUsers = async () => {
             try {
                 const userList = await UserService.list();
+                console.log(userList);
                 setUserDataset(userList);
             } catch (error) {
                 console.error("Error fetching users:", error);

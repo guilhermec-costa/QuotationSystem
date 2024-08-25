@@ -3,6 +3,7 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ListFilter } from "lucide-react";
 import { useMemo } from "react";
 import StatusItem from "./StatusItem";
+import { Separator } from "@/components/ui";
 
 const DropdownFilter = ({
     columnFilters,
@@ -26,10 +27,11 @@ const DropdownFilter = ({
                 align="start"
                 sideOffset={8}
             >
-                <DropdownMenuLabel className="text-xs font-medium text-muted-foreground uppercase px-3 mb-1">
+                <DropdownMenuLabel className="text-xs font-medium uppercase px-3 mb-1">
                     Status
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator className="my-1 mx-3 border-muted" />
+                <Separator />
+                <DropdownMenuSeparator className="my-1 mx-3" />
                 {uniqueStatuses.map((status, i) =>
                     <StatusItem
                         status={status}
@@ -37,7 +39,7 @@ const DropdownFilter = ({
                         columnFilters={columnFilters}
                         columnId={columnId}
                         key={i}
-                        className="px-3 py-1.5 hover:bg-muted/10 cursor-pointer transition-colors duration-200 ease-in-out"
+                        className="px-3 py-1.5 cursor-pointer duration-200 ease-in-out"
                     />
                 )}
             </DropdownMenuContent>

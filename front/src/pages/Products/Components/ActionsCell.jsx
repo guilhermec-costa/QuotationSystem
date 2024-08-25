@@ -23,25 +23,25 @@ const ActionsCell = ({ row, table }) => {
                         title: "Edit",
                         callback: () => renderProductModal(row.original, row.index, "edit"),
                         icon: <Pencil className="w-[18px] mr-3" />,
-                        enabled: getIsAdmin() ? true : false
+                        disabled: !getIsAdmin() ? true : false
                     },
                     {
                         title: "Delete",
                         callback: () => renderProductModal(row.original, row.index, "delete"),
                         icon: <Delete className="w-[18px] mr-3" />,
-                        enabled: getIsAdmin() ? true : false
+                        disabled: !getIsAdmin() ? true : false
                     },
                     {
                         title: "View",
                         callback: () => renderProductModal(row.original, row.index, "view"),
                         icon: <View className="w-[18px] mr-3" />,
-                        enabled: getIsAdmin() ? true : false
+                        disabled: !getIsAdmin() ? true : false
                     },
-                    row.original.quantity && {
+                    row.original.quantity > 0 && {
                         title: "purchase",
                         callback: () => handlePurchaseClick(row.original),
                         icon: <ShoppingCart className="w-[18px] mr-3" />,
-                        enabled: getIsAdmin() ? true : false
+                        disabled: !getIsAdmin() ? true : false
                     }
                 ]}
             />

@@ -8,12 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react";
 import { memo } from "react";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 const ActionsEllipses = ({
     actions
@@ -32,10 +26,9 @@ const ActionsEllipses = ({
                 {actions.map((action, i) => {
                     return (
                         <>
-
-                            <DropdownMenuItem key={i} className="hover:cursor-pointer" onClick={action.callback} disabled={false}>{action.icon}{action.title}</DropdownMenuItem>
+                            <DropdownMenuItem key={i} className="cursor-pointer" onClick={action.callback} disabled={action?.disabled}>{action.icon}{action.title}</DropdownMenuItem>
                         </>
-                    )
+                    );
                 }
                 )}
             </DropdownMenuContent>

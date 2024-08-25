@@ -18,9 +18,10 @@ import ThemeSwitcher from "../ThemeSwitcher";
 import NavItem from "./NavItem";
 import useClickOutside from "@/hooks/useClickOutside";
 import { Separator } from "../ui";
+import { Badge } from "../ui/badge";
 
 const DesktopNavigation = ({ children }) => {
-    const { logout, getIsAdmin } = useAuth();
+    const { logout, getIsAdmin, userData } = useAuth();
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const sidebarRef = useClickOutside(() => setIsSidebarVisible(false));
 
@@ -47,7 +48,7 @@ const DesktopNavigation = ({ children }) => {
     return (
         <>
             <div
-                className={`fixed top-0 bottom-0 left-0 z-50 w-[300px] bg-card text-card-foreground shadow-lg transition-transform duration-300 ease-in-out transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`fixed top-0 bottom-0 left-0 z-50 w-[300px] bg-card text-card-foreground shadow-2xl transition-transform duration-300 ease-in-out transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}
                 ref={sidebarRef}
             >
                 <div className="flex flex-col h-full">
@@ -59,6 +60,20 @@ const DesktopNavigation = ({ children }) => {
                         >
                             <SquareChevronLeft className="w-6 h-6" />
                         </div>
+                    </div>
+                    <div className="px-4 py-4 space-y-4">
+                        <h3 className="text-xl font-bold text-primary-foreground">
+                            You are welcome, {userData.email}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                            Here you can manage all your activities and access important information.
+                        </p>
+
+                        <p>Logged as
+                            <Badge variant="outline" className="bg-yellow-500 ml-2 text-sm">
+                                {getIsAdmin() ? "Administrator" : "Colaborator"}
+                            </Badge>
+                        </p>
                     </div>
                     <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
                         <NavItem title="Dashboard" link="/" icon={<BarChart />} cb={() => setIsSidebarVisible(false)} />
@@ -94,7 +109,7 @@ const DesktopNavigation = ({ children }) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between h-[50px] px-4 bg-secondary text-secondary-foreground">
+            <div className="flex items-center justify-between h-[60px] px-4 bg-secondary text-secondary-foreground">
                 <div
                     className="cursor-pointer hover:bg-card p-2 rounded-md transition-colors duration-200 ease-in-out"
                     onClick={() => setIsSidebarVisible((prev) => !prev)}
