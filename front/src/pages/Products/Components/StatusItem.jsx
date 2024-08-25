@@ -29,20 +29,19 @@ const StatusItem = ({
     );
 
     return (
-        <div className="items-top flex space-x-2">
+        <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-muted cursor-pointer transition-all duration-300 ease-in-out group">
             <Checkbox
                 id={columnId}
                 onCheckedChange={(e) => handleCheckboxChanged(e, status)}
                 checked={isChecked}
+                className="focus:ring-primary focus:ring-opacity-50 focus:outline-none text-primary-foreground"
             />
-            <div className="grid gap-1.5 leading-none">
-                <label
-                    htmlFor={columnId}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                    {status}
-                </label>
-            </div>
+            <label
+                htmlFor={columnId}
+                className="text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors duration-200 ease-in-out"
+            >
+                {status}
+            </label>
         </div>
     );
 }

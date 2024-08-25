@@ -46,7 +46,7 @@ const QuotationsProvider = ({ children }) => {
             setQuotationDataset(quotations);
             fetchProducts();
         }
-    }), [quotationDataset, products]);
+    }), [quotationDataset]);
 
     return (
         <QuotationsContext.Provider value={ctxValue}>{children}</QuotationsContext.Provider>

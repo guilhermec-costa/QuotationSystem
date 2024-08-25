@@ -16,7 +16,7 @@ export function DataTable({
     const [columnFilters, setColumnFilters] = useState([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 9
+        pageSize: 7
     });
 
     const table = useReactTable({
@@ -41,7 +41,7 @@ export function DataTable({
 
     return (
         <>
-            <div className='w-[80%] rounded-md bg-secondary mt-3 mx-auto overflow-y-auto'>
+            <div className='w-full rounded-md border bg-secondary mt-3 overflow-y-auto'>
                 <Table className="w-[100%] mh-[25%] relative">
                     <TableHeader className="bg-secondary text-primary">
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -50,7 +50,7 @@ export function DataTable({
                                     const { searchable, FilterComponent, sortable } = header.column.columnDef.meta || { undefined, undefined, undefined };
                                     return (
                                         <TableHead key={header.id} className={`relative`} style={{ width: `${header.getSize()}px` }}>
-                                            <div className="flex justify-between items-center text-lg">
+                                            <div className="flex justify-between items-center text-base">
                                                 {header.column.columnDef.header}
                                                 <div
                                                     onMouseDown={header.getResizeHandler()}
@@ -95,7 +95,7 @@ export function DataTable({
                     </TableHeader>
                     <TableBody className="bg-card">
                         {table.getRowModel().rows.map(row => (
-                            <TableRow key={row.id} className="border border-sky-500">
+                            <TableRow key={row.id} className="border-b-[1px] border-slate-600 border-solid hover:bg-secondary">
                                 {row.getVisibleCells().map(cell => (
                                     <TableCell key={cell.id} className="text-base">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -63,7 +63,7 @@ const Layout = ({ children }) => {
     }, [])
 
     return (
-        <div className="relative h-screen">
+        <div className="h-screen">
             {
                 isMobile ?
                     (
@@ -77,7 +77,7 @@ const Layout = ({ children }) => {
                         </div>
                     )
             }
-            <footer className="fixed bottom-0 left-0 w-full h-[50px] bg-secondary text-secondary-foreground flex justify-between items-center px-4 shadow-md border-t border-muted z-50">
+            <footer className="fixed bottom-0 left-0 w-full h-[50px] bg-secondary text-secondary-foreground flex justify-between items-center px-4 shadow-md border-t border-muted z-40">
                 <span className="text-sm md:text-base font-medium">© INFNET - Quotation System</span>
                 <div className="flex gap-4">
                     <a href="https://github.com/GuiC0506/quotation-system" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors duration-200 ease-in-out">

@@ -26,6 +26,8 @@ export const columns = [
     {
         accessorKey: "description",
         header: "Description",
+        sortable: true,
+        filterFn: "includesString",
         cell: ({ getValue, table }) => (
             <div>{getValue()}</div>
         ),
@@ -41,10 +43,8 @@ export const columns = [
         accessorKey: "price",
         header: "Price",
         meta: {
+            sortable: true,
             searchable: true,
-        },
-        meta: {
-            searchable: false,
             FilterComponent: ({ columnFilters, setColumnFilters, columnId }) => <InputFilterDrawer
                 columnFilters={columnFilters}
                 setColumnFilters={setColumnFilters}
@@ -62,6 +62,10 @@ export const columns = [
     {
         accessorKey: "quantity",
         header: "Quantity",
+        meta: {
+            sortable: true,
+            searchable: true,
+        },
         cell: (props) => (
             <div>{props.getValue()}</div>
         ),

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useContext, useState, createContext } from "react";
 import { useFirestore } from "./useFirestore";
 import PurchaseService from "@/api/purchaseService";
+import ProductService from "@/api/productService";
 
 const PurchaseRequisitionContext = createContext({});
 
@@ -13,9 +14,13 @@ const PurchaseRequisitionProvider = ({ children }) => {
     useEffect(() => {
         const fetchPurchases = async () => {
             try {
+                const productList = await ProductService.list();
                 const purchaseList = await PurchaseService.list();
-                console.log(purchaseList);
-                setPurchaseDataset(purchaseList);
+                const updatedPurchaseList = purchaseList.map(purchase => ({
+                    ...purchase,
+                    productName: productList.find(product => product.id === purchase.productId).name
+                }));
+                setPurchaseDataset(updatedPurchaseList);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }

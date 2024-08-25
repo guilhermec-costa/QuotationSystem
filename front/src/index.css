@@ -25,6 +25,7 @@
         --input: 220 15% 90%; /* Cinza para inputs */
         --ring: 156 72% 34%; /* Verde para elementos de foco */
         --radius: 0.75rem;
+        --main-font: Roboto
     }
 
     .dark {

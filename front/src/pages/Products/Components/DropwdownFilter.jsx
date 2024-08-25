@@ -11,18 +11,34 @@ const DropdownFilter = ({
     table
 }) => {
     const currentFieldValue = columnFilters.find(filter => filter.id === columnId)?.value || "";
-    const uniqueStatuses = useMemo(() => Array.from(new Set(table.options.data.map(product => product.status))))
+    const uniqueStatuses = useMemo(() => Array.from(new Set(table.options.data.map(product => product.status))), [table.options.data]);
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger >
-                <ListFilter className="w-[20px] cursor-pointer data-[is-filtered=true]:text-card-foreground" data-is-filtered={!!currentFieldValue} />
+            <DropdownMenuTrigger className="focus:outline-none">
+                <ListFilter
+                    className={`w-[20px] cursor-pointer transition-transform duration-200 ease-in-out hover:scale-110 ${currentFieldValue ? 'text-primary' : 'text-muted-foreground'}`}
+                    data-is-filtered={!!currentFieldValue}
+                />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuLabel>Status</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+            <DropdownMenuContent
+                className="bg-card border border-border rounded-lg shadow-lg py-2 w-48"
+                align="start"
+                sideOffset={8}
+            >
+                <DropdownMenuLabel className="text-xs font-medium text-muted-foreground uppercase px-3 mb-1">
+                    Status
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="my-1 mx-3 border-muted" />
                 {uniqueStatuses.map((status, i) =>
-                    <StatusItem status={status} setColumnFilters={setColumnFilters} columnFilters={columnFilters} columnId={columnId} key={i} />
+                    <StatusItem
+                        status={status}
+                        setColumnFilters={setColumnFilters}
+                        columnFilters={columnFilters}
+                        columnId={columnId}
+                        key={i}
+                        className="px-3 py-1.5 hover:bg-muted/10 cursor-pointer transition-colors duration-200 ease-in-out"
+                    />
                 )}
             </DropdownMenuContent>
         </DropdownMenu>

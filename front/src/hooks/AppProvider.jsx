@@ -12,21 +12,19 @@ const AppProvider = ({ children }) => {
 	return (
 		<ThemeProvider defaultTheme="dark" storageThemeKey="cotation-theme">
 			<FirestoreProvider>
-				<UserProvider>
+				<AuthProvider>
 					<SuppliersProvider>
-						<ContactsProvider>
-							<PurchaseRequisitionProvider>
-								<ProductsProvider>
+						<ProductsProvider>
+							<ContactsProvider>
+								<PurchaseRequisitionProvider>
 									<QuotationsProvider>
-										<AuthProvider>
-											{children}
-										</AuthProvider>
+										{children}
 									</QuotationsProvider>
-								</ProductsProvider>
-							</PurchaseRequisitionProvider>
-						</ContactsProvider>
+								</PurchaseRequisitionProvider>
+							</ContactsProvider>
+						</ProductsProvider>
 					</SuppliersProvider>
-				</UserProvider>
+				</AuthProvider>
 			</FirestoreProvider>
 		</ThemeProvider>
 	)

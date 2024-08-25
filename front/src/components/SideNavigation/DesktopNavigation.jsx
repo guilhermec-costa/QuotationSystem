@@ -20,7 +20,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 import { Separator } from "../ui";
 
 const DesktopNavigation = ({ children }) => {
-    const { logout, isAdmin } = useAuth();
+    const { logout, getIsAdmin } = useAuth();
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const sidebarRef = useClickOutside(() => setIsSidebarVisible(false));
 
@@ -47,7 +47,7 @@ const DesktopNavigation = ({ children }) => {
     return (
         <>
             <div
-                className={`fixed top-0 bottom-0 left-0 z-20 w-[300px] bg-card text-card-foreground shadow-lg transition-transform duration-300 ease-in-out transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`fixed top-0 bottom-0 left-0 z-50 w-[300px] bg-card text-card-foreground shadow-lg transition-transform duration-300 ease-in-out transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}
                 ref={sidebarRef}
             >
                 <div className="flex flex-col h-full">
@@ -64,9 +64,11 @@ const DesktopNavigation = ({ children }) => {
                         <NavItem title="Dashboard" link="/" icon={<BarChart />} cb={() => setIsSidebarVisible(false)} />
                         <Separator />
                         <NavItem title="Products" link="/products" icon={<ShoppingBag />} cb={() => setIsSidebarVisible(false)} />
-                        <Separator />
-                        {(isAdmin || Boolean(localStorage.getItem("isAdmin"))) && (
-                            <NavItem title="User Managing" link="/me" icon={<User />} cb={() => setIsSidebarVisible(false)} />
+                        {getIsAdmin() && (
+                            <>
+                                <Separator />
+                                <NavItem title="User Managing" link="/me" icon={<User />} cb={() => setIsSidebarVisible(false)} />
+                            </>
                         )}
                         <Separator />
                         <NavItem title="Contacts" link="/contacts" icon={<ContactRound />} cb={() => setIsSidebarVisible(false)} />

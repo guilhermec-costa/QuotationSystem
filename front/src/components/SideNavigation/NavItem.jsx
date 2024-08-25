@@ -9,7 +9,7 @@ const NavItem = ({
     cb
 }) => {
     return (
-        <div className="flex justify-start gap-x-2 text-foreground hover:bg-slate-700 p-3 rounded-md cursor-pointer w-full">
+        <div className="flex justify-start gap-x-2 text-foreground hover:bg-secondary p-3 rounded-md cursor-pointer w-full">
             {icon}
             <Link to={link} onClick={cb && cb} className="w-full">
                 {CloseTag ? (

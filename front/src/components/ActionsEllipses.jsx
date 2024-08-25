@@ -24,7 +24,7 @@ const ActionsEllipses = ({
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <Separator />
                 {actions.map((action, i) =>
-                    <DropdownMenuItem key={i} className="hover:cursor-pointer" onClick={action.callback}>{action.icon}{action.title}</DropdownMenuItem>
+                    <DropdownMenuItem key={i} className="hover:cursor-pointer" onClick={action.callback} disabled={false}>{action.icon}{action.title}</DropdownMenuItem>
                 )}
             </DropdownMenuContent>
         </DropdownMenu>

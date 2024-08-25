@@ -27,6 +27,11 @@ export const AuthProvider = ({ children }) => {
         return pattern.test(email);
     };
 
+    const getIsAdmin = () => {
+        const isAdmin = localStorage.getItem("isAdmin") === "true";
+        return isAdmin;
+    }
+
     const login = async (credentials) => {
         const { email, password } = credentials;
         try {
@@ -54,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         await signOut(authHandler);
         localStorage.removeItem("userData");
+        localStorage.removeItem("isAdmin")
         setUserData({});
         setIsLogged(false);
     }
@@ -85,7 +91,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         recoverPassword,
         isLogged,
-        isAdmin
+        getIsAdmin
     }), [userData, login]);
 
     return <AuthContext.Provider value={ctxValue}>{children}</AuthContext.Provider>

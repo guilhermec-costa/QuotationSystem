@@ -56,7 +56,7 @@ const ProductModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-700" type="button" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
                     </div>
                 )
@@ -64,15 +64,15 @@ const ProductModal = ({
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteProductFromData}>Delete</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-700" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-600" onClick={deleteProductFromData}>Delete</Button>
                     </div>
                 )
             };
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-700" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
                     </div>
                 )

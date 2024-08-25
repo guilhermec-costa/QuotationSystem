@@ -16,7 +16,7 @@ import { z } from "zod";
 const SupplierSchema = z.object({
     name: z.string(),
     address: z.string(),
-    phone: z.string().min(10).max(15),  
+    phone: z.string().min(10).max(15),
     email: z.string().email(),
 });
 
@@ -36,7 +36,7 @@ const SupplierModal = ({
             case "create": return { action: "Creating" }
             case "delete": return { action: "Deleting" }
             case "view": return { action: "Viewing" }
-            default: return { action: "Editing" };  
+            default: return { action: "Editing" };
         }
     }, [mode]);
 
@@ -56,7 +56,7 @@ const SupplierModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-800" type="button" onClick={onConfirm}>Cancel</Button>
                         <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
                     </div>
                 )
@@ -64,16 +64,16 @@ const SupplierModal = ({
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteSupplierFromData}>Delete</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-800" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-600" onClick={deleteSupplierFromData}>Delete</Button>
                     </div>
                 )
             };
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-800" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-600" type="submit">Create</Button>
                     </div>
                 )
             }
