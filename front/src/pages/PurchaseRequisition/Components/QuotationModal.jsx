@@ -19,7 +19,7 @@ const QuotationSchema = z.object({
         message: "Date must be in the format YYYY-MM-DD"
     }),
     price: z.string(),
-    productId: z.string()  
+    productId: z.string()
 });
 
 const QuotationModal = ({
@@ -36,7 +36,7 @@ const QuotationModal = ({
 
     });
 
-    const { data: products } = useProducts(); 
+    const { data: products } = useProducts();
 
     const generateQuotationModalMessages = useCallback(() => {
         switch (mode) {
@@ -44,7 +44,7 @@ const QuotationModal = ({
             case "create": return { action: "Creating" };
             case "delete": return { action: "Deleting" };
             case "view": return { action: "Viewing" };
-            default: return { action: "Editing" }; 
+            default: return { action: "Editing" };
         }
     }, [mode]);
 
@@ -64,24 +64,24 @@ const QuotationModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-800" type="button" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" type="submit">Confirm</Button>
                     </div>
                 )
             };
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteQuotationFromData}>Delete</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-800" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" onClick={deleteQuotationFromData}>Delete</Button>
                     </div>
                 )
             };
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-red-800" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" type="submit">Create</Button>
                     </div>
                 )
             }
@@ -98,7 +98,7 @@ const QuotationModal = ({
             await QuotationService.updateOne(rowData.id, newQuotation);
             notifySuccess("Quotation updated");
         }
-        
+
         setData(await QuotationService.list());
         onConfirm();
     };

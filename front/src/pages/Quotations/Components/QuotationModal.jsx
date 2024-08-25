@@ -65,7 +65,7 @@ const QuotationModal = ({
                 return (
                     <div className="my-3 w-full flex justify-between">
                         <Button className="w-[48%] bg-destructive hover:bg-red-800" type="button" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" type="submit">Confirm</Button>
                     </div>
                 )
             };
@@ -73,7 +73,7 @@ const QuotationModal = ({
                 return (
                     <div className="my-3 w-full flex justify-between">
                         <Button className="w-[48%] bg-destructive hover:bg-red-800" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-600" onClick={deleteQuotationFromData}>Delete</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" onClick={deleteQuotationFromData}>Delete</Button>
                     </div>
                 )
             };
@@ -81,7 +81,7 @@ const QuotationModal = ({
                 return (
                     <div className="my-3 w-full flex justify-between">
                         <Button className="w-[48%] bg-destructive hover:bg-red-800" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-600" type="submit">Create</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" type="submit">Create</Button>
                     </div>
                 )
             }

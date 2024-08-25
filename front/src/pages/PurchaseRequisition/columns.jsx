@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import ActionsCell from "./Components/ActionsCell";
 import InputFilterDrawer from "./Components/InputFilterDrawer";
 
@@ -11,7 +12,7 @@ export const columns = [
             const date = new Date(milliseconds);
             const formattedDate = date.toLocaleString();
             return (
-                <div>{formattedDate}</div>
+                <div>{formattedDate || "-"}</div>
             )
         },
         size: 100,
@@ -32,7 +33,7 @@ export const columns = [
         accessorKey: "productName",
         header: "Product",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         size: 100,
         minSize: 80,
@@ -52,7 +53,7 @@ export const columns = [
         accessorKey: "userName",
         header: "User",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         size: 100,
         minSize: 80,
@@ -72,7 +73,7 @@ export const columns = [
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-            return <div className="text-primary font-bold">{row.original.status}</div>
+            return <Badge className="text-primary-foreground font-bold bg-primary" variant={"outline"}>{row.original.status || "-"}</Badge>
         },
         size: 80,
         minSize: 60,
@@ -92,7 +93,7 @@ export const columns = [
         accessorKey: "quantity",
         header: "Quantity",
         cell: ({ row }) => {
-            return <div className="text-primary font-bold">{row.original.quantity}</div>
+            return <div>{row.original.quantity || "-"}</div>
         },
         size: 80,
         minSize: 60,

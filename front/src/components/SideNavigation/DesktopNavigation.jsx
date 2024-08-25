@@ -109,7 +109,8 @@ const DesktopNavigation = ({ children }) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between h-[60px] px-4 bg-secondary text-secondary-foreground">
+            <div className={`flex items-center justify-between h-[50px] px-4 bg-secondary data-[sidebar-open=true]:bg-transparent text-secondary-foreground sticky top-0 right-0 left-0`}
+                data-sidebar-open={isSidebarVisible}>
                 <div
                     className="cursor-pointer hover:bg-card p-2 rounded-md transition-colors duration-200 ease-in-out"
                     onClick={() => setIsSidebarVisible((prev) => !prev)}

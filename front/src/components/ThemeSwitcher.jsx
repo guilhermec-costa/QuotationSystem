@@ -14,7 +14,7 @@ const ThemeSwitcher = (props) => {
     }, [theme]);
 
     const getThemeIcon = useCallback(() => {
-        return theme === "dark" ? <Sun {...props} fill="#FABC3F" color="#E85C0D" /> : <Moon {...props} fill="" color="" />
+        return theme === "dark" ? <Sun {...props} fill="#FABC3F" color="#FABC3F" /> : <Moon {...props} fill="" color="" />
     })
 
     return (

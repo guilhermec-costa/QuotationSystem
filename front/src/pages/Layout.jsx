@@ -67,12 +67,12 @@ const Layout = ({ children }) => {
             {
                 isMobile ?
                     (
-                        <div className="z-20 relative overflow-y-scroll">
+                        <div className="z-20 relative overflow-auto">
                             <MobileNavigation children={children} navigationItems={navigationItems} />
                         </div>
                     ) :
                     (
-                        <div className="overflow-hidden h-screen">
+                        <div className="h-screen overflow-auto">
                             <DesktopNavigation children={children} />
                         </div>
                     )

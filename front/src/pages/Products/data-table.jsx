@@ -48,7 +48,7 @@ export function DataTable({
 
     return (
         <>
-            <div className='w-full rounded-md border bg-secondary mt-3 overflow-y-auto'>
+            <div className='w-full rounded-md border bg-secondary mt-3 overflow-y-auto border-slate-700 border-solid border-opacity-[0.5]'>
                 <Table className="w-[100%] mh-[25%] relative">
                     <TableHeader className="bg-secondary text-primary rounded-md">
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -102,7 +102,7 @@ export function DataTable({
                     </TableHeader>
                     <TableBody className="bg-card">
                         {table.getRowModel().rows.map(row => (
-                            <TableRow key={row.id} className="border-b-[1px] border-slate-600 border-solid">
+                            <TableRow key={row.id} className="border-b-[1px] border-slate-600 border-solid hover:bg-card">
                                 {row.getVisibleCells().map(cell => (
                                     <TableCell key={cell.id}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

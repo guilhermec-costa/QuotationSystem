@@ -16,9 +16,9 @@ import { z } from "zod";
 
 const ContactSchema = z.object({
     name: z.string(),
-    phone: z.string().min(10).max(13),  
+    phone: z.string().min(10).max(13),
     email: z.string().email(),
-    supplierId: z.string()  
+    supplierId: z.string()
 });
 
 const ContactModal = ({
@@ -28,10 +28,10 @@ const ContactModal = ({
     const [contactMessages, setContactMessages] = useState({});
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         resolver: zodResolver(ContactSchema),
-        defaultValues: rowData ? { ...rowData, supplierId: rowData.supplierId } : {} 
+        defaultValues: rowData ? { ...rowData, supplierId: rowData.supplierId } : {}
     });
 
-    const { data: suppliersData } = useSuppliers(); 
+    const { data: suppliersData } = useSuppliers();
 
     const generateContactModalMessages = useCallback(() => {
         switch (mode) {
@@ -39,7 +39,7 @@ const ContactModal = ({
             case "create": return { action: "Creating" }
             case "delete": return { action: "Deleting" }
             case "view": return { action: "Viewing" }
-            default: return { action: "Editing" };  
+            default: return { action: "Editing" };
         }
     }, [mode]);
 
@@ -59,24 +59,24 @@ const ContactModal = ({
             case "edit": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" type="button" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground hover:bg-green-600 font-bold" type="submit">Confirm</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-destructive-800" type="button" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" type="submit">Confirm</Button>
                     </div>
                 );
             }
             case "delete": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-gray-100 hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-destructive text-card-foreground font-bold hover:bg-red-700" onClick={deleteContactFromData}>Delete</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-destructive-800" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" onClick={deleteContactFromData}>Delete</Button>
                     </div>
                 );
             }
             case "create": {
                 return (
                     <div className="my-3 w-full flex justify-between">
-                        <Button className="w-[48%] bg-secondary-foreground hover:bg-white" onClick={onConfirm}>Cancel</Button>
-                        <Button className="w-[48%] bg-primary text-card-foreground font-bold hover:bg-green-500" type="submit">Create</Button>
+                        <Button className="w-[48%] bg-destructive hover:bg-destructive-800" onClick={onConfirm}>Cancel</Button>
+                        <Button className="w-[48%] bg-primary text-card-foreground font-bold" type="submit">Create</Button>
                     </div>
                 );
             }
@@ -157,7 +157,7 @@ const ContactModal = ({
                             </SelectContent>
                         </Select>
                     ) : (
-                        <Input disabled={!editAvailable} {...register("supplierId")}
+                        <Input disabled={!editAvailable} {...register("supplierName")}
                             className="focus-visible:ring-transparent ring-offset-transparent bg-background md:text-base
                                     data-[supplierId-errors=true]:my-0.5 my-1"
                             data-supplierId-errors={!!errors.supplierId}

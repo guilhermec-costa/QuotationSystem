@@ -106,7 +106,7 @@ export function DataTable({
                     </TableHeader>
                     <TableBody className="bg-card">
                         {table.getRowModel().rows.map(row => (
-                            <TableRow key={row.id} className="border-b-[1px] border-slate-600 border-solid border-opacity-[0.5]">
+                            <TableRow key={row.id} className="border-b-[1px] border-slate-600 border-solid border-opacity-[0.5] bg-card">
                                 {row.getVisibleCells().map(cell => (
                                     <TableCell key={cell.id}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

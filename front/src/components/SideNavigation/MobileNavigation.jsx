@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { Separator } from "../ui";
 
 const MobileNavigation = ({ children, navigationItems }) => {
-    const { logout, isAdmin } = useAuth();
+    const { logout, getIsAdmin } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -46,7 +46,7 @@ const MobileNavigation = ({ children, navigationItems }) => {
                         <DrawerTitle className="text-primary">Navigation</DrawerTitle>
                         <div className=" gap-2 text-lg flex-col items-center">
                             {navigationItems.map(item => {
-                                if ((item.adminOnly && isAdmin) || !item.adminOnly) {
+                                if ((item.adminOnly && getIsAdmin()) || !item.adminOnly) {
                                     return (
                                         <>
                                             <NavItem title={item.title} link={item.link} icon={item.icon} CloseTag={DrawerClose} />

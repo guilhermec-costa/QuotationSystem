@@ -5,9 +5,11 @@ import ContactModal from "./Components/ContactModal";
 import { useState } from "react";
 import { CirclePlus } from "lucide-react";
 import { useContacts } from "@/hooks/useContacts";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Contacts() {
     const { data, setData } = useContacts();
+    const { getIsAdmin } = useAuth();
     const [isCreateNewContactOpen, setIsCreateNewContactModalOpen] = useState(false);
 
     return (
@@ -19,13 +21,15 @@ export default function Contacts() {
                 <p className="text-lg text-foreground">Manage your contacts. You can add, edit, or delete contacts from this section.</p>
             </header>
 
-            <div className="flex items-center mb-4">
-                <Button className="flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 transition-colors duration-300" 
-                    onClick={() => setIsCreateNewContactModalOpen(prev => !prev)}>
-                    <CirclePlus className="mr-2" />
-                    Create Contact 
-                </Button>
-            </div>
+            {getIsAdmin() && (
+                <div className="flex items-center mb-4">
+                    <Button className="flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 transition-colors duration-300"
+                        onClick={() => setIsCreateNewContactModalOpen(prev => !prev)}>
+                        <CirclePlus className="mr-2" />
+                        Create Contact
+                    </Button>
+                </div>
+            )}
 
             {/* Data Table */}
             <DataTable columns={columns} data={data} setData={setData} />

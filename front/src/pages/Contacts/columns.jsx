@@ -6,7 +6,7 @@ export const columns = [
         accessorKey: "name",
         header: "Name",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         enableColumnFilter: true,
         size: 60,
@@ -25,7 +25,7 @@ export const columns = [
         accessorKey: "phone",
         header: "Phone",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         enableColumnFilter: true,
         size: 50,
@@ -44,7 +44,7 @@ export const columns = [
         accessorKey: "email",
         header: "Email",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         enableColumnFilter: true,
         size: 60,
@@ -63,7 +63,7 @@ export const columns = [
         accessorKey: "supplierName",
         header: "Supplier",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         enableColumnFilter: true,
         size: 60,

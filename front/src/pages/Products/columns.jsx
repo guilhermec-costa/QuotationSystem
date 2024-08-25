@@ -2,13 +2,14 @@ import ActionsCell from "./Components/ActionsCell";
 import { Available, Unavailable } from "./Components/Availability";
 import DropdownFilter from "./Components/DropwdownFilter";
 import InputFilterDrawer from "@/components/InputFilterDrawer";
+import { Badge } from "@/components/ui/badge";
 
 export const columns = [
     {
         accessorKey: "name",
         header: "Name",
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         enableColumnFilter: true,
         size: 60,
@@ -29,7 +30,7 @@ export const columns = [
         sortable: true,
         filterFn: "includesString",
         cell: ({ getValue, table }) => (
-            <div>{getValue()}</div>
+            <div>{getValue() || "-"}</div>
         ),
         meta: {
             searchable: true,
@@ -56,7 +57,7 @@ export const columns = [
                 style: "currency",
                 currency: "BRL"
             }).format(price)
-            return <div className="text-primary font-bold">{formattedPrice}</div>
+            return <div className="text-primary font-bold">{formattedPrice || "-"}</div>
         }
     },
     {
@@ -67,7 +68,7 @@ export const columns = [
             searchable: true,
         },
         cell: (props) => (
-            <div>{props.getValue()}</div>
+            <div>{props.getValue() || "-"}</div>
         ),
         size: 20
     },
@@ -75,7 +76,9 @@ export const columns = [
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => (
-            row.original.status.toLowerCase() === "in stock" ? <Available status={row.original.status} /> : <Unavailable status={row.original.status} />
+            row.original.status.toLowerCase() === "in stock" ?
+                <Badge className={"bg-primary"} variant={"outline"}>{row.original.status || "-"}</Badge> :
+                <Badge className={"bg-destructive"}>{row.original.status || "-"}</Badge>
         ),
         size: 50,
         meta: {
