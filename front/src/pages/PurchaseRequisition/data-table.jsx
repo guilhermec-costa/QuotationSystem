@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { useReactTable, getCoreRowModel, getFilteredRowModel, getSortedRowModel, getPaginationRowModel } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { flexRender } from '@tanstack/react-table';
-import QuotationModal from './Components/QuotationModal';
-import { ArrowDownUp } from 'lucide-react';
+import { ArrowDownUp, Download } from 'lucide-react';
 import { ArrowUpWideNarrow } from 'lucide-react';
 import { ArrowDownWideNarrow } from 'lucide-react';
 import Pagination from '@/components/Pagination';
+import { CSVLink } from 'react-csv';
 
 export function DataTable({
     data,
     setData,
-    columns
+    columns,
+    setChangePurchaseModalOpen,
+    purchaseSetter
 }) {
     const [selectedRow, setSelectedRow] = useState({});
     const [actionType, setActionType] = useState("");
@@ -46,12 +48,21 @@ export function DataTable({
 
             closeConfirmationModal: () => {
                 setSelectedRow({})
-            }
+            },
+            
+            changePurchaseModalVisibility: () => setChangePurchaseModalOpen(prev => !prev),
+            purchaseSetterFn: purchaseSetter
         }
     });
 
     return (
         <>
+            <section>
+                <button className='flex gap-x-2 bg-primary p-2 rounded-md'>
+                    <Download />
+                    <CSVLink data={data} target='_blank'>Download Requisitions</CSVLink>
+                </button>
+            </section>
             <div className='w-full rounded-md border bg-secondary mt-3 overflow-y-auto border-slate-700 border-solid border-opacity-[0.5]'>
                 <Table className="w-[100%] mh-[25%] relative">
                     <TableHeader className="bg-secondary text-primary rounded-md">
@@ -118,16 +129,6 @@ export function DataTable({
                 </Table>
                 <Pagination table={table} setPagination={setPagination} pagination={pagination} />
             </div>
-            {!isNaN(selectedRow.rowIndex) && (
-                <QuotationModal
-                    mode={actionType}
-                    rowData={selectedRow.rowData}
-                    setData={setData}
-                    onConfirm={() => {
-                        table.options.meta.closeConfirmationModal();
-                    }}
-                />
-            )}
         </>
     );
 }

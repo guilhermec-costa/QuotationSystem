@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Users, Box, Briefcase } from "lucide-react";
+import { FileText, Users, Box, Briefcase, BarChart as BarChartIcon } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const Dashboard = () => {
@@ -24,8 +24,9 @@ const Dashboard = () => {
 
     return (
         <div className="p-6 space-y-6">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-start items-center mb-8">
                 <h1 className="text-3xl font-bold">{projectInfo.name} Dashboard</h1>
+                <BarChartIcon className="ml-3" size={32}/>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

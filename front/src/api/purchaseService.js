@@ -15,9 +15,32 @@ export default class PurchaseService {
                 status: "opened",
                 createdAt: new Date()
             });
-            console.log(`Purchase added successfully: ${contact.name}`);
+            console.log(`Purchase added successfully: ${contact?.name}`);
         } catch (error) {
             console.error("Failed to add purchase:", error);
+        }
+    }
+
+    static async mutateStatus(purchaseId, newStatus) {
+        try {
+            const existingPurchase = await this.getOne(purchaseId);
+            const purchaseRef = doc(this.purchaseCollection, purchaseId);
+
+            const newPurchase = {
+                ...existingPurchase,
+                status: newStatus 
+            }
+            await updateDoc(purchaseRef, newPurchase);
+            console.log(`Product updated successfully: ${productId}`);
+        } catch (error) {
+            console.error("Failed to update product:", error);
+        }
+    }
+
+    static async getOne(purchaseId) {
+        const purchaseDoc = await getDoc(doc(this.purchaseCollection, purchaseId));
+        if(purchaseDoc.exists()) {
+            return purchaseDoc.data();
         }
     }
 

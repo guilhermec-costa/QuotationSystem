@@ -15,7 +15,7 @@ export const getFormmatedPurchases = async () => {
         const purchaseList = await PurchaseService.list();
         const updatedPurchaseList = purchaseList.map(purchase => ({
             ...purchase,
-            productName: productList.find(product => product.id === purchase.productId).name,
+            productName: productList.find(product => product.id === purchase.productId)?.name,
             userName: userList.find(user => user.id === purchase.userId)?.email
         }));
         return updatedPurchaseList;
