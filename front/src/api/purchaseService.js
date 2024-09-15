@@ -15,7 +15,7 @@ export default class PurchaseService {
                 status: "opened",
                 createdAt: new Date()
             });
-            console.log(`Purchase added successfully: ${contact?.name}`);
+            console.log(`Purchase added successfully`);
         } catch (error) {
             console.error("Failed to add purchase:", error);
         }

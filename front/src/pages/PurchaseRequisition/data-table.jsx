@@ -10,7 +10,6 @@ import { CSVLink } from 'react-csv';
 
 export function DataTable({
     data,
-    setData,
     columns,
     setChangePurchaseModalOpen,
     purchaseSetter
@@ -40,10 +39,6 @@ export function DataTable({
             renderProductModal: (rowData, rowIndex, mode) => {
                 setActionType(mode);
                 setSelectedRow({ rowData, rowIndex });
-            },
-
-            deleteProductFromTable: () => {
-                setData(prevProducts => prevProducts.filter((_, i) => i !== selectedRow.rowIndex))
             },
 
             closeConfirmationModal: () => {

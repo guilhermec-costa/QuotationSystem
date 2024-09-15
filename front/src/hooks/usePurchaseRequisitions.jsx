@@ -36,7 +36,10 @@ const PurchaseRequisitionProvider = ({ children }) => {
 
     const ctxValue = useMemo(() => ({
         data: purchaseDataset,
-        setData: setPurchaseDataset
+        updateDataset: () => {
+            getFormmatedPurchases()
+                .then(data => setPurchaseDataset(data));
+        }
     }), [purchaseDataset]);
 
     return (

@@ -12,7 +12,7 @@ import { getFormmatedPurchases } from '@/hooks/usePurchaseRequisitions';
 const PurchaseModal = ({ product, isOpen, onClose }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { userData } = useAuth();
-    const { setData: setPurchaseRequisitions } = usePurchaseRequisition();
+    const { updateDataset } = usePurchaseRequisition();
 
     const onSubmit = async (data) => {
         const userId = userData.uid;
@@ -23,9 +23,9 @@ const PurchaseModal = ({ product, isOpen, onClose }) => {
         }
         try {
             await PurchaseService.create(product.id, userId, quantityToPurchase)
-            setPurchaseRequisitions(await PurchaseService.list());
-            setPurchaseRequisitions(await getFormmatedPurchases());
+            updateDataset(await getFormmatedPurchases());
         } catch (error) {
+            console.log(error.message)
             notifyError("Failed to create purchase requisition: ", error.message);
         }
         notifySuccess(`Purchase requisition for ${product.name} created!`);

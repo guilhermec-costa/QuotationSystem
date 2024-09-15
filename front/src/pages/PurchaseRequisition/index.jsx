@@ -5,7 +5,7 @@ import UpdateStatusModal from "./Components/UpdateStatusModal";
 import { useState } from "react";
 
 export default function PurchaseRequisition() {
-    const { data, setData } = usePurchaseRequisition();
+    const { data, updateDataset } = usePurchaseRequisition();
     const [ isChangePurchaseModalOpen, setIsChangePurchaseModalOpen ] = useState(false);
     const [ purchaseToModify, setPurchaseToModify ] = useState({});
 
@@ -19,13 +19,13 @@ export default function PurchaseRequisition() {
             <DataTable 
                 columns={columns} 
                 data={data} 
-                setData={setData} 
                 setChangePurchaseModalOpen={setIsChangePurchaseModalOpen} 
                 purchaseSetter={setPurchaseToModify} />
             {isChangePurchaseModalOpen && (
             <UpdateStatusModal 
                 setIsOpen={setIsChangePurchaseModalOpen}
                 purchaseData={purchaseToModify}
+                setData={updateDataset}
             />
 
             )}
